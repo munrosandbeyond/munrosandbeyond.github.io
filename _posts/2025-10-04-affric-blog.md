@@ -10,7 +10,7 @@ It’s a stunning 8-9 mile walk into the Glen, along the side of Loch Affric, to
 At the hostel I was greeted by the warden who showed me around and quickly had a fire going in the kitchen. There was around 8 people I guess, including a few who were camping outside. It’s a simple set-up: some basic gas-powered electricity which is turned off in the evenings, no heating and a pretty tepid shower. But the true magic is around the fire in the evening. After getting warm and dry, looking out into the wet and moody emptiness whilst sitting next to a roaring fire was a great way to start the weekend.
 
 <figure style="display: block; text-align: center;">
-  <img src="/assets/IMG_2004.jpg" alt="Mountain view" style="display: block; margin: 0 auto; width: 70%; border-radius: 10px;">
+  <img src="/assets/IMG_2004.jpg" alt="Mountain view" style="display: block; margin: 0 auto; width: 30%; border-radius: 10px;">
   <figcaption style="margin-top: 8px; font-style: italic; color: #555;">
     View out the window of the Hostel.
   </figcaption>

@@ -6,6 +6,7 @@ date: 2025-10-04
 author: Dewi Gould
 image: /assets/IMG_2114.JPG
 tags: [munro, hiking, affric, scotland, outdoors]
+thumbnail: "/assets/IMG_2114.JPG"
 ---
 
 ## Easter Weekend in Glen Affric

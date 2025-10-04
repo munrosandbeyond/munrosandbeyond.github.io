@@ -30,9 +30,13 @@ The peace and quiet of Glen Affric is very hard to leave. Having experienced suc
 A few fellow hostel-goers passed me on their bikes on the way out. There was one particularly memorable interaction:
 
 Man on bike: “How many munro’s have you got left?”
+
 Me: “Over 100 - long way to go!”
+
 Man on bike: “are you married yet?”
+
 Me: “No…”
+
 Man on bike: “Don’t bother until you’ve got at least 200 under your belt, that’s my advice”
 
 Good words to live by.

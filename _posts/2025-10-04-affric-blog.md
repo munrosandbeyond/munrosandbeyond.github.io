@@ -18,6 +18,25 @@ At the hostel I was greeted by the warden who showed me around and quickly had a
 I woke up to steady rain and cloud-covered tops. My plan was to do three nearest munro’s today: An Socach, Mullach na Dheiragain and Sgurr nan Caethreamnhnan. I made good time up the first, but hit the snow line around two thirds of the way up - the sort of wet and slippy kind that makes moving quickly quite tricky. It was raining pretty heaving on and off, but up high this turned into snow.
 
 It was a desolate and totally isolated walk - after over-taking two people from the hostel early on, I didn’t see anyone else all day. For most of the day the views were minimal, and on the tops the visibility was close to zero. It was dark, grey and very wet from above and below.
+<div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+
+  <figure style="text-align: center; margin: 0;">
+    <img src="/assets/IMG_20073.JPEG" alt="View out the window" style="width: 30%; border-radius: 10px;">
+    <figcaption style="margin-top: 8px; font-style: italic; color: #555;">
+      Sgurr nan Caethreamnhnan.
+    </figcaption>
+  </figure>
+
+  <figure style="text-align: center; margin: 0;">
+    <img src="/assets/IMG_2077.jpg" alt="Mountain view" style="width: 30%; border-radius: 10px;">
+    <figcaption style="margin-top: 8px; font-style: italic; color: #555;">
+      Brief breaks in the cloud afforded views down into the Glen.
+    </figcaption>
+  </figure>
+
+</div>
+
+
 
 There would be the odd moment where the clouds would clear, leaving a beautiful wintry scene. I hadn’t expected the snow to be so deep this late, but at points it was up past my knees on the way up to the third and final munro. It was a long slog, and as I reached the summit it was a total whiteout - I had to use the GPS and compass to find the way back down.
 

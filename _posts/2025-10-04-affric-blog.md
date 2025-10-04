@@ -15,15 +15,6 @@ At the hostel I was greeted by the warden who showed me around and quickly had a
     View out the window of the Hostel.
   </figcaption>
 </figure>
-
-<figure style="text-align: center;">
-  <img src="/assets/IMG_2004.jpg" alt="Mountain view" class="img-fluid" style="display: inline-block; max-width: 30%; border-radius: 10px;">
-  <figcaption style="margin-top: 8px; font-style: italic; color: #555;">
-    View from Ben Lomond summit, October 2025
-  </figcaption>
-</figure>
-
-
 I woke up to steady rain and cloud-covered tops. My plan was to do three nearest munro’s today: An Socach, Mullach na Dheiragain and Sgurr nan Caethreamnhnan. I made good time up the first, but hit the snow line around two thirds of the way up - the sort of wet and slippy kind that makes moving quickly quite tricky. It was raining pretty heaving on and off, but up high this turned into snow.
 
 It was a desolate and totally isolated walk - after over-taking two people from the hostel early on, I didn’t see anyone else all day. For most of the day the views were minimal, and on the tops the visibility was close to zero. It was dark, grey and very wet from above and below.

@@ -21,7 +21,7 @@ It was a desolate and totally isolated walk - after over-taking two people from 
 <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
 
   <figure style="text-align: center; margin: 0;">
-    <img src="/assets/IMG_20073.JPEG" alt="SgurrNanC view" style="width: 30%; border-radius: 10px;">
+    <img src="/assets/IMG_2073.JPEG" alt="SgurrNanC view" style="width: 30%; border-radius: 10px;">
     <figcaption style="margin-top: 8px; font-style: italic; color: #555;">
       Sgurr nan Caethreamnhnan.
     </figcaption>

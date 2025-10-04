@@ -64,15 +64,15 @@ I retraced my steps and then turned right to head up the back of Beinn Fhada. De
 
 <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
 
-  <figure style="text-align: center; margin: 0;">
-    <img src="/assets/IMG_2086.JPG" alt="summit view" style="width: 30%; border-radius: 10px;">
+  <figure style="text-align: center; margin: 0; flex: 0 1 30%">
+    <img src="/assets/IMG_2086.JPG" alt="summit view" style="width: 100%; border-radius: 10px;">
     <figcaption style="margin-top: 8px; font-style: italic; color: #555;">
       View from the top of Beinn Fhada.
     </figcaption>
   </figure>
 
-  <figure style="text-align: center; margin: 0;">
-    <img src="/assets/IMG_2102.JPG" alt="peace" style="width: 30%; border-radius: 10px;">
+  <figure style="text-align: center; margin: 0; flex: 0 1 30%">
+    <img src="/assets/IMG_2102.JPG" alt="peace" style="width: 100%; border-radius: 10px;">
     <figcaption style="margin-top: 8px; font-style: italic; color: #555;">
       Peace and quiet on the summit.
     </figcaption>
@@ -82,15 +82,15 @@ I retraced my steps and then turned right to head up the back of Beinn Fhada. De
 
 <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
 
-  <figure style="text-align: center; margin: 0;">
-    <img src="/assets/IMG_2111.JPG" alt="threemunros" style="width: 30%; border-radius: 10px;">
+  <figure style="text-align: center; margin: 0; flex: 0 1 30%">
+    <img src="/assets/IMG_2111.JPG" alt="threemunros" style="width: 100%; border-radius: 10px;">
     <figcaption style="margin-top: 8px; font-style: italic; color: #555;">
       The three munro's I did yesterday, in the distance.
     </figcaption>
   </figure>
 
-  <figure style="text-align: center; margin: 0;">
-    <img src="/assets/IMG_2114.JPG" alt="lochan" style="width: 30%; border-radius: 10px;">
+  <figure style="text-align: center; margin: 0; flex: 0 1 30%">
+    <img src="/assets/IMG_2114.JPG" alt="lochan" style="width: 100%; border-radius: 10px;">
     <figcaption style="margin-top: 8px; font-style: italic; color: #555;">
       Small lochan on Beinn Fhada.
     </figcaption>

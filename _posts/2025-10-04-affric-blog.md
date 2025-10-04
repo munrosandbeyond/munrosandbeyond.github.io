@@ -9,7 +9,7 @@ It’s a stunning 8-9 mile walk into the Glen, along the side of Loch Affric, to
 
 At the hostel I was greeted by the warden who showed me around and quickly had a fire going in the kitchen. There was around 8 people I guess, including a few who were camping outside. It’s a simple set-up: some basic gas-powered electricity which is turned off in the evenings, no heating and a pretty tepid shower. But the true magic is around the fire in the evening. After getting warm and dry, looking out into the wet and moody emptiness whilst sitting next to a roaring fire was a great way to start the weekend.
 
-![The hostel](/assets/IMG_2004.ipg)
+![The hostel](/munrosandbeyond/assets/IMG_2004.ipg)
 
 I woke up to steady rain and cloud-covered tops. My plan was to do three nearest munro’s today: An Socach, Mullach na Dheiragain and Sgurr nan Caethreamnhnan. I made good time up the first, but hit the snow line around two thirds of the way up - the sort of wet and slippy kind that makes moving quickly quite tricky. It was raining pretty heaving on and off, but up high this turned into snow.
 

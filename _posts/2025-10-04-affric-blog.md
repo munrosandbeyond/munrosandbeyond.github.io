@@ -45,7 +45,7 @@ Back in the hostel the evening was full of sharing adventures from the day aroun
 Waking up on Sunday morning was like I had been transported to another continent. It was blue skies, warm and completely still. A very kind lady from Glasgow had left a creme egg on my bed to have when I made it to my summit today, since she had to leave early to drive home. On the recommendation of the warden, I chose to do A Ghlas Beinn and Beinn Fhada. This day quickly became one of the best days I have ever had. 
 
 <figure style="display: block; text-align: center;">
-  <img src="/assets/IMG_2079.JPEG" alt="Morning view" style="display: block; margin: 0 auto; width: 30%; border-radius: 10px;">
+  <img src="/assets/IMG_2079.JPG" alt="blue skies" style="display: block; margin: 0 auto; width: 30%; border-radius: 10px;">
   <figcaption style="margin-top: 8px; font-style: italic; color: #555;">
     Blue skies!
   </figcaption>
@@ -54,7 +54,7 @@ Waking up on Sunday morning was like I had been transported to another continent
 There’s something in the air in Glen Affric - it feels magical in a way that is hard to describe. It’s quite a long, broad ridge to get up to A Ghlas Beinn, but the views behind me over Beinn Fhada and Glen Affric were completely mind-blowing. The combination of the blue skies, sharp snow line and perfect visibility made it truly magnificent. Looking over to the mountains I climbed yesterday was funny - it’s hard to believe less than 24hours ago I was in a whiteout with all my layers on and two pairs of gloves…this morning I’m in shorts.
 
 <figure style="display: block; text-align: center;">
-  <img src="/assets/IMG_2098.JPEG" alt="loch view" style="display: block; margin: 0 auto; width: 30%; border-radius: 10px;">
+  <img src="/assets/IMG_2098.JPG" alt="loch view" style="display: block; margin: 0 auto; width: 30%; border-radius: 10px;">
   <figcaption style="margin-top: 8px; font-style: italic; color: #555;">
     Loch a'Bhealach from A Ghlas Beinn.
   </figcaption>
@@ -65,14 +65,14 @@ I retraced my steps and then turned right to head up the back of Beinn Fhada. De
 <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
 
   <figure style="text-align: center; margin: 0;">
-    <img src="/assets/IMG_2086.JPEG" alt="summit view" style="width: 30%; border-radius: 10px;">
+    <img src="/assets/IMG_2086.JPG" alt="summit view" style="width: 30%; border-radius: 10px;">
     <figcaption style="margin-top: 8px; font-style: italic; color: #555;">
       View from the top of Beinn Fhada.
     </figcaption>
   </figure>
 
   <figure style="text-align: center; margin: 0;">
-    <img src="/assets/IMG_2102.JPEG" alt="peace" style="width: 30%; border-radius: 10px;">
+    <img src="/assets/IMG_2102.JPG" alt="peace" style="width: 30%; border-radius: 10px;">
     <figcaption style="margin-top: 8px; font-style: italic; color: #555;">
       Peace and quiet on the summit.
     </figcaption>
@@ -83,14 +83,14 @@ I retraced my steps and then turned right to head up the back of Beinn Fhada. De
 <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
 
   <figure style="text-align: center; margin: 0;">
-    <img src="/assets/IMG_2111.JPEG" alt="threemunros" style="width: 30%; border-radius: 10px;">
+    <img src="/assets/IMG_2111.JPG" alt="threemunros" style="width: 30%; border-radius: 10px;">
     <figcaption style="margin-top: 8px; font-style: italic; color: #555;">
       The three munro's I did yesterday, in the distance.
     </figcaption>
   </figure>
 
   <figure style="text-align: center; margin: 0;">
-    <img src="/assets/IMG_2114.JPEG" alt="lochan" style="width: 30%; border-radius: 10px;">
+    <img src="/assets/IMG_2114.JPG" alt="lochan" style="width: 30%; border-radius: 10px;">
     <figcaption style="margin-top: 8px; font-style: italic; color: #555;">
       Small lochan on Beinn Fhada.
     </figcaption>

@@ -20,15 +20,15 @@ I woke up to steady rain and cloud-covered tops. My plan was to do three nearest
 It was a desolate and totally isolated walk - after over-taking two people from the hostel early on, I didn’t see anyone else all day. For most of the day the views were minimal, and on the tops the visibility was close to zero. It was dark, grey and very wet from above and below.
 <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
 
-  <figure style="text-align: center; margin: 0;">
-    <img src="/assets/IMG_2073.JPEG" alt="SgurrNanC view" style="width: 30%; border-radius: 10px;">
+  <figure style="text-align: center; margin: 0; flex: 0 1 30%">
+    <img src="/assets/IMG_2073.JPEG" alt="SgurrNanC view" style="width: 100%; border-radius: 10px;">
     <figcaption style="margin-top: 8px; font-style: italic; color: #555;">
       Sgurr nan Caethreamnhnan.
     </figcaption>
   </figure>
 
-  <figure style="text-align: center; margin: 0;">
-    <img src="/assets/IMG_2077.JPEG" alt="break in cloud" style="width: 30%; border-radius: 10px;">
+  <figure style="text-align: center; margin: 0; flex: 0 1 30%">
+    <img src="/assets/IMG_2077.JPEG" alt="break in cloud" style="width: 100%; border-radius: 10px;">
     <figcaption style="margin-top: 8px; font-style: italic; color: #555;">
       Brief breaks in the cloud afforded views down into the Glen.
     </figcaption>

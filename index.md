@@ -1,6 +1,6 @@
 Some ramblings from some rambles.
 
 <figure style="display: block; text-align: center;">
-  <img src="/assets/DSC_7588.JPEG" alt="frontpageimage" style="display: block; margin: 0 auto; width: 30%; border-radius: 10px;">
+  <img src="assets/DSC_7588.JPEG" alt="frontpageimage" style="display: block; margin: 0 auto; width: 30%; border-radius: 10px;">
 </figure>
 

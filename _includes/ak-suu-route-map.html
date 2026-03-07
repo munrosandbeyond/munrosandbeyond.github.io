@@ -1,0 +1,266 @@
+<div class="route-map-section">
+  <h3 class="route-map-title">The Route</h3>
+  <div id="route-map" class="route-map"></div>
+  <div class="route-legend">
+    <span class="route-legend-item"><span class="route-legend-line day1"></span> Day 1</span>
+    <span class="route-legend-item"><span class="route-legend-line day2"></span> Day 2</span>
+    <span class="route-legend-item"><span class="route-legend-line day3"></span> Day 3</span>
+    <span class="route-legend-item"><span class="route-legend-line day4"></span> Day 4</span>
+    <span class="route-legend-item"><span class="route-legend-line day5"></span> Day 5</span>
+    <span class="route-legend-item"><span class="route-legend-dot camp"></span> Camp</span>
+  </div>
+  <div class="elevation-section">
+    <h4 class="elevation-title">Elevation Profile</h4>
+    <canvas id="elevation-chart" class="elevation-chart"></canvas>
+  </div>
+  <div class="route-stats-bar">
+    <div class="route-stat"><span class="route-stat-value" id="total-dist">--</span><span class="route-stat-label">Total km</span></div>
+    <div class="route-stat"><span class="route-stat-value" id="max-elev">--</span><span class="route-stat-label">Max Elevation</span></div>
+    <div class="route-stat"><span class="route-stat-value" id="total-gain">--</span><span class="route-stat-label">Total Ascent</span></div>
+    <div class="route-stat"><span class="route-stat-value">5</span><span class="route-stat-label">Days</span></div>
+  </div>
+</div>
+
+<script>
+(function() {
+  var dayColors = ['#e8555a', '#e89b3f', '#5bb563', '#4a90d9', '#9b59b6'];
+  var dayFiles = [
+    '/assets/gpx/Ak_Suu_Traverse_Tian_Shan_Mountains_Day_1.gpx',
+    '/assets/gpx/Ak_Suu_Traverse_Tian_Shan_Mountains_Day_2.gpx',
+    '/assets/gpx/Ak_Suu_Traverse_Tian_Shan_Mountains_Day_3.gpx',
+    '/assets/gpx/Ak_Suu_Traverse_Tian_Shan_Mountains_Day_4.gpx',
+    '/assets/gpx/Ak_Suu_Traverse_Tian_Shan_Mountains_Day_5.gpx'
+  ];
+
+  // Camp locations (end of each day / start of next)
+  var camps = [
+    {lat: 42.4509, lng: 78.8607, label: 'Camp 1: Boz-Uchuk Lake', elev: '3,400m'},
+    {lat: 42.3907, lng: 78.7373, label: 'Camp 2: Almaluu Gorge', elev: '2,900m'},
+    {lat: 42.3731, lng: 78.6118, label: 'Camp 3: Altyn Arashan', elev: '2,600m'},
+    {lat: 42.3251, lng: 78.4956, label: 'Camp 4: Above Karakol Gorge', elev: '2,800m'}
+  ];
+
+  var startPoint = {lat: 42.5687, lng: 78.7602, label: 'Start: Boz-Uchuk Town', elev: '1,870m'};
+
+  var map = L.map('route-map', {scrollWheelZoom: false}).setView([42.42, 78.68], 11);
+
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+    maxZoom: 19,
+    attribution: '&copy; OpenStreetMap &copy; CARTO'
+  }).addTo(map);
+
+  // Collect all elevation data for chart
+  var allElevations = [];
+  var allDistances = [];
+  var dayBoundaries = [];
+  var totalDist = 0;
+  var maxElev = 0;
+  var totalGain = 0;
+  var loadedCount = 0;
+  var bounds = L.latLngBounds();
+
+  function haversine(lat1, lon1, lat2, lon2) {
+    var R = 6371;
+    var dLat = (lat2 - lat1) * Math.PI / 180;
+    var dLon = (lon2 - lon1) * Math.PI / 180;
+    var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+            Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+            Math.sin(dLon/2) * Math.sin(dLon/2);
+    return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  }
+
+  function parseGPX(xml) {
+    var parser = new DOMParser();
+    var doc = parser.parseFromString(xml, 'text/xml');
+    var points = doc.getElementsByTagName('trkpt');
+    var coords = [];
+    var elevs = [];
+    for (var i = 0; i < points.length; i++) {
+      var lat = parseFloat(points[i].getAttribute('lat'));
+      var lon = parseFloat(points[i].getAttribute('lon'));
+      var eleNode = points[i].getElementsByTagName('ele')[0];
+      var ele = eleNode ? parseFloat(eleNode.textContent) : 0;
+      coords.push([lat, lon]);
+      elevs.push(ele);
+    }
+    return {coords: coords, elevations: elevs};
+  }
+
+  function loadDay(index) {
+    fetch(dayFiles[index])
+      .then(function(r) { return r.text(); })
+      .then(function(xml) {
+        var data = parseGPX(xml);
+
+        // Draw route on map
+        var latlngs = data.coords.map(function(c) { return L.latLng(c[0], c[1]); });
+
+        // White outline for contrast
+        L.polyline(latlngs, {color: '#fff', weight: 6, opacity: 0.6}).addTo(map);
+        // Colored line
+        L.polyline(latlngs, {color: dayColors[index], weight: 3.5, opacity: 0.9, lineCap: 'round'}).addTo(map);
+
+        latlngs.forEach(function(ll) { bounds.extend(ll); });
+
+        // Calculate distances and elevation
+        var dayDist = 0;
+        var dayGain = 0;
+        var prevElev = data.elevations[0];
+        for (var i = 1; i < data.coords.length; i++) {
+          var d = haversine(data.coords[i-1][0], data.coords[i-1][1], data.coords[i][0], data.coords[i][1]);
+          dayDist += d;
+          var elevDiff = data.elevations[i] - prevElev;
+          if (elevDiff > 0) dayGain += elevDiff;
+          prevElev = data.elevations[i];
+        }
+
+        // Sample elevation data (every ~200m for smooth chart)
+        var sampleInterval = Math.max(1, Math.floor(data.coords.length / 200));
+        dayBoundaries.push(allElevations.length);
+        for (var i = 0; i < data.coords.length; i += sampleInterval) {
+          allElevations.push(data.elevations[i]);
+          allDistances.push(totalDist + haversineAccum(data.coords, i, sampleInterval));
+          if (data.elevations[i] > maxElev) maxElev = data.elevations[i];
+        }
+
+        totalDist += dayDist;
+        totalGain += dayGain;
+        loadedCount++;
+
+        if (loadedCount === 5) {
+          finalize();
+        }
+      });
+  }
+
+  function haversineAccum(coords, upTo, interval) {
+    var dist = 0;
+    for (var i = interval; i <= upTo; i += interval) {
+      dist += haversine(coords[i-interval][0], coords[i-interval][1], coords[i][0], coords[i][1]);
+    }
+    return dist;
+  }
+
+  function finalize() {
+    map.fitBounds(bounds, {padding: [30, 30]});
+
+    // Add start marker
+    var startIcon = L.divIcon({
+      className: 'route-marker',
+      html: '<div class="route-marker-dot start-marker"></div>',
+      iconSize: [16, 16], iconAnchor: [8, 8]
+    });
+    L.marker([startPoint.lat, startPoint.lng], {icon: startIcon}).addTo(map)
+      .bindPopup('<div class="munro-popup"><strong>' + startPoint.label + '</strong><br>' + startPoint.elev + '</div>');
+
+    // Add camp markers
+    var campIcon = L.divIcon({
+      className: 'route-marker',
+      html: '<div class="route-marker-dot camp-marker"></div>',
+      iconSize: [14, 14], iconAnchor: [7, 7]
+    });
+    camps.forEach(function(c) {
+      L.marker([c.lat, c.lng], {icon: campIcon}).addTo(map)
+        .bindPopup('<div class="munro-popup"><strong>' + c.label + '</strong><br>' + c.elev + '</div>');
+    });
+
+    // Update stats
+    document.getElementById('total-dist').textContent = totalDist.toFixed(0);
+    document.getElementById('max-elev').textContent = Math.round(maxElev) + 'm';
+    document.getElementById('total-gain').textContent = Math.round(totalGain) + 'm';
+
+    // Draw elevation chart
+    drawElevation();
+  }
+
+  function drawElevation() {
+    var canvas = document.getElementById('elevation-chart');
+    var ctx = canvas.getContext('2d');
+    var dpr = window.devicePixelRatio || 1;
+    var rect = canvas.getBoundingClientRect();
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    ctx.scale(dpr, dpr);
+    var W = rect.width;
+    var H = rect.height;
+
+    var minElev = Math.min.apply(null, allElevations) - 100;
+    var maxE = maxElev + 100;
+    var n = allElevations.length;
+
+    // Background
+    ctx.fillStyle = '#f8f6f3';
+    ctx.fillRect(0, 0, W, H);
+
+    // Grid lines
+    ctx.strokeStyle = '#e0ddd8';
+    ctx.lineWidth = 0.5;
+    var elevSteps = [2000, 2500, 3000, 3500, 4000];
+    ctx.font = '11px Inter, sans-serif';
+    ctx.fillStyle = '#999';
+    ctx.textAlign = 'left';
+    elevSteps.forEach(function(e) {
+      if (e >= minElev && e <= maxE) {
+        var y = H - 25 - ((e - minElev) / (maxE - minElev)) * (H - 45);
+        ctx.beginPath();
+        ctx.moveTo(45, y);
+        ctx.lineTo(W - 10, y);
+        ctx.stroke();
+        ctx.fillText(e + 'm', 2, y + 4);
+      }
+    });
+
+    // Determine which day each sample belongs to
+    dayBoundaries.push(n);
+
+    // Draw filled area and line for each day
+    for (var d = 0; d < 5; d++) {
+      var start = dayBoundaries[d];
+      var end = dayBoundaries[d + 1];
+      if (start >= end) continue;
+
+      // Fill
+      ctx.beginPath();
+      var firstX = 45 + (start / (n - 1)) * (W - 55);
+      var firstY = H - 25 - ((allElevations[start] - minElev) / (maxE - minElev)) * (H - 45);
+      ctx.moveTo(firstX, H - 25);
+      ctx.lineTo(firstX, firstY);
+      for (var i = start; i < end; i++) {
+        var x = 45 + (i / (n - 1)) * (W - 55);
+        var y = H - 25 - ((allElevations[i] - minElev) / (maxE - minElev)) * (H - 45);
+        ctx.lineTo(x, y);
+      }
+      var lastX = 45 + ((end - 1) / (n - 1)) * (W - 55);
+      ctx.lineTo(lastX, H - 25);
+      ctx.closePath();
+      ctx.fillStyle = dayColors[d] + '18';
+      ctx.fill();
+
+      // Line
+      ctx.beginPath();
+      for (var i = start; i < end; i++) {
+        var x = 45 + (i / (n - 1)) * (W - 55);
+        var y = H - 25 - ((allElevations[i] - minElev) / (maxE - minElev)) * (H - 45);
+        if (i === start) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.strokeStyle = dayColors[d];
+      ctx.lineWidth = 2.5;
+      ctx.stroke();
+    }
+
+    // Day labels along bottom
+    ctx.font = '11px Inter, sans-serif';
+    ctx.textAlign = 'center';
+    for (var d = 0; d < 5; d++) {
+      var mid = (dayBoundaries[d] + dayBoundaries[d + 1]) / 2;
+      var x = 45 + (mid / (n - 1)) * (W - 55);
+      ctx.fillStyle = dayColors[d];
+      ctx.fillText('Day ' + (d + 1), x, H - 5);
+    }
+  }
+
+  // Load all 5 days in order
+  for (var i = 0; i < 5; i++) loadDay(i);
+})();
+</script>

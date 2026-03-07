@@ -567,6 +567,164 @@ body {
   font-style: italic;
 }
 
+/* ---------- Route Map Section ---------- */
+
+.route-map-section {
+  margin: 3rem 0;
+}
+
+.route-map-title {
+  font-family: var(--font-heading) !important;
+  font-size: 1.3rem !important;
+  font-weight: 700 !important;
+  text-align: center;
+  margin-bottom: 1.5rem !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
+.route-map {
+  width: 100%;
+  height: 450px;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+  z-index: 1;
+}
+
+.route-legend {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  margin-top: 1rem;
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  color: var(--color-text-light);
+}
+
+.route-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.route-legend-line {
+  width: 20px;
+  height: 3px;
+  border-radius: 2px;
+  display: inline-block;
+}
+
+.route-legend-line.day1 { background: #e8555a; }
+.route-legend-line.day2 { background: #e89b3f; }
+.route-legend-line.day3 { background: #5bb563; }
+.route-legend-line.day4 { background: #4a90d9; }
+.route-legend-line.day5 { background: #9b59b6; }
+
+.route-legend-dot.camp {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ff8c00;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 1px #ff8c00;
+  display: inline-block;
+}
+
+/* Map markers for route */
+.route-marker-dot {
+  border-radius: 50%;
+}
+
+.start-marker {
+  width: 16px;
+  height: 16px;
+  background: #2ecc40;
+  border: 3px solid #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+}
+
+.camp-marker {
+  width: 12px;
+  height: 12px;
+  background: #ff8c00;
+  border: 2.5px solid #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+}
+
+/* Elevation profile */
+.elevation-section {
+  margin-top: 2rem;
+}
+
+.elevation-title {
+  font-family: var(--font-heading) !important;
+  font-size: 0.78rem !important;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-light) !important;
+  text-align: center;
+  margin-bottom: 0.8rem !important;
+  border: none !important;
+  padding: 0 !important;
+  font-weight: 600 !important;
+}
+
+.elevation-chart {
+  width: 100%;
+  height: 180px;
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+}
+
+/* Route stats */
+.route-stats-bar {
+  display: flex;
+  justify-content: center;
+  gap: 2.5rem;
+  margin-top: 1.5rem;
+  padding: 1.2rem 1.5rem;
+  background: linear-gradient(135deg, #f8f6f3 0%, #f0ece6 100%);
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+  flex-wrap: wrap;
+}
+
+.route-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.route-stat-value {
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--color-accent);
+  line-height: 1;
+}
+
+.route-stat-label {
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-light);
+  margin-top: 0.25rem;
+}
+
+@media (max-width: 600px) {
+  .route-map {
+    height: 350px;
+  }
+  .elevation-chart {
+    height: 140px;
+  }
+  .route-stats-bar {
+    gap: 1.5rem;
+  }
+}
+
 /* ---------- Strava Embed ---------- */
 
 .strava-embed-container {

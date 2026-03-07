@@ -8,11 +8,25 @@ layout: default
     <p>Every adventure, pinned.</p>
   </div>
 
+  <div class="world-map-controls">
+    <label class="world-map-toggle">
+      <input type="checkbox" id="toggle-routes" checked> Show Strava activities
+    </label>
+    <div class="world-map-legend">
+      <span class="legend-item"><span class="legend-line" style="background:#e8555a"></span> Run</span>
+      <span class="legend-item"><span class="legend-line" style="background:#4a90d9"></span> Ride</span>
+      <span class="legend-item"><span class="legend-line" style="background:#5bb563"></span> Hike</span>
+      <span class="legend-item"><span class="legend-line" style="background:#9b59b6"></span> Other</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#e8873c"></span> Blog post</span>
+    </div>
+  </div>
+
   <div id="world-map" class="world-map"></div>
 </div>
 
 <script>
 (function() {
+  // Blog post pins
   var posts = [
     {% for post in site.posts %}
     {% if post.location_lat %}
@@ -22,7 +36,6 @@ layout: default
       url: "{{ post.url }}",
       thumbnail: "{{ post.thumbnail | default: post.image }}",
       tripDate: {{ post.trip_date | default: post.date | date: "%B %Y" | jsonify }},
-      category: {{ post.category | jsonify }},
       lat: {{ post.location_lat }},
       lng: {{ post.location_lng }}
     },
@@ -40,8 +53,65 @@ layout: default
     attribution: '&copy; OpenStreetMap &copy; CARTO'
   }).addTo(map);
 
-  var pinColor = '#e8873c';
+  // Decode Google encoded polyline
+  function decodePolyline(encoded) {
+    var points = [];
+    var index = 0, len = encoded.length;
+    var lat = 0, lng = 0;
+    while (index < len) {
+      var b, shift = 0, result = 0;
+      do { b = encoded.charCodeAt(index++) - 63; result |= (b & 0x1f) << shift; shift += 5; } while (b >= 0x20);
+      lat += ((result & 1) ? ~(result >> 1) : (result >> 1));
+      shift = 0; result = 0;
+      do { b = encoded.charCodeAt(index++) - 63; result |= (b & 0x1f) << shift; shift += 5; } while (b >= 0x20);
+      lng += ((result & 1) ? ~(result >> 1) : (result >> 1));
+      points.push([lat / 1e5, lng / 1e5]);
+    }
+    return points;
+  }
 
+  var typeColors = {
+    'Run': '#e8555a',
+    'TrailRun': '#e8555a',
+    'Ride': '#4a90d9',
+    'GravelRide': '#4a90d9',
+    'MountainBikeRide': '#4a90d9',
+    'Hike': '#5bb563',
+    'Walk': '#5bb563',
+    'Snowshoe': '#5bb563'
+  };
+  var defaultColor = '#9b59b6';
+
+  // Layer group for Strava routes
+  var routesLayer = L.layerGroup().addTo(map);
+
+  // Load Strava routes
+  fetch('/assets/strava-routes.json')
+    .then(function(r) { return r.json(); })
+    .then(function(routes) {
+      routes.forEach(function(route) {
+        var coords = decodePolyline(route.polyline);
+        if (coords.length < 2) return;
+        var color = typeColors[route.type] || defaultColor;
+        L.polyline(coords, {
+          color: color,
+          weight: 1.5,
+          opacity: 0.5,
+          smoothFactor: 2
+        }).addTo(routesLayer);
+      });
+    });
+
+  // Toggle routes visibility
+  document.getElementById('toggle-routes').addEventListener('change', function() {
+    if (this.checked) {
+      map.addLayer(routesLayer);
+    } else {
+      map.removeLayer(routesLayer);
+    }
+  });
+
+  // Blog post pins (on top)
   var pinIcon = L.divIcon({
     className: 'world-map-pin',
     html: '<div class="world-map-pin-dot"></div>',
@@ -63,14 +133,13 @@ layout: default
     popupHtml += '<a href="' + p.url + '" class="world-map-popup-link">Read more &rarr;</a>';
     popupHtml += '</div></div>';
 
-    L.marker([p.lat, p.lng], {icon: pinIcon})
+    L.marker([p.lat, p.lng], {icon: pinIcon, zIndexOffset: 1000})
       .addTo(map)
       .bindPopup(popupHtml, {maxWidth: 280, minWidth: 220});
 
     bounds.extend([p.lat, p.lng]);
   });
 
-  // Fit to show all pins with some padding
   if (posts.length > 0) {
     map.fitBounds(bounds, {padding: [60, 60], maxZoom: 6});
   }

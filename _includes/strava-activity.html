@@ -1,3 +1,4 @@
 <div class="strava-embed-container">
-  <iframe allowtransparency="true" frameborder="0" height="405" scrolling="no" src="https://www.strava.com/activities/{{ include.id }}/embed" width="100%" loading="lazy"></iframe>
+  <div class="strava-embed-placeholder" data-embed-type="activity" data-embed-id="{{ include.id }}" data-style="standard" data-from-hierarchical="false"></div>
+  <script src="https://strava-embeds.com/embed.js"></script>
 </div>

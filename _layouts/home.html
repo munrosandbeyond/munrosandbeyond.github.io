@@ -1,0 +1,41 @@
+---
+layout: default
+---
+
+<section class="hero" style="background-image: url('/assets/DSC_8511.JPEG');">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <h1 class="hero-title">Munros &amp; Beyond</h1>
+    <p class="hero-subtitle">{{ site.description }}</p>
+    <div class="hero-stats">
+      <span class="stat">Munros: 115 / 282</span>
+    </div>
+    <a href="#posts" class="hero-scroll-btn" aria-label="Scroll to posts">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
+    </a>
+  </div>
+</section>
+
+<section id="posts" class="posts-section">
+  <h2 class="section-title">Latest Adventures</h2>
+  <div class="posts-grid">
+    {% for post in site.posts %}
+    <a href="{{ post.url }}" class="post-card">
+      <div class="card-image" style="background-image: url('{{ post.thumbnail | default: post.image }}');"></div>
+      <div class="card-body">
+        <div class="card-meta">
+          <time>{{ post.date | date: "%B %Y" }}</time>
+          {% if post.tags.size > 0 %}
+            <span class="card-tag">{{ post.tags | first }}</span>
+          {% endif %}
+        </div>
+        <h3 class="card-title">{{ post.title }}</h3>
+        <p class="card-excerpt">{{ post.description }}</p>
+        <span class="card-link">Read more &rarr;</span>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+
+{{ content }}

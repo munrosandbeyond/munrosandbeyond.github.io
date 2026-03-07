@@ -9,6 +9,11 @@
   {% seo %}
   <!-- End SEO -->
 
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="{{ "/assets/main.css" | relative_url }}">
   <link rel="stylesheet" type="text/css" href="/css/override.css">
 
@@ -20,18 +25,10 @@
   <!-- End Google Analytics -->
   {%- endif %}
 
-  <!-- Begin highlight.js support -->
-  <link rel="stylesheet" href="/js/highlightjs/styles/github.css">
-  <link rel="stylesheet" href="/js/highlightjs/styles/ssms.css" />
-
-  <script type="text/javascript" src="/js/highlightjs/highlight.min.js"></script>
-
-  <script type="text/javascript" src="/js/highlightjs/languages/plaintext.min.js"></script>
-  <script type="text/javascript" src="/js/highlightjs/languages/powershell.min.js"></script>
-  <script type="text/javascript" src="/js/highlightjs/languages/tsql.min.js"></script>
-
-  <script type="text/javascript"> hljs.highlightAll(); </script>
-  <!-- end highlight.js support -->
+  <!-- Leaflet for GPX maps -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/2.1.2/gpx.min.js"></script>
 
   <meta name="google-site-verification" content="UNQwboGnsSzBqS8LMZaz57NYnT4ZcfsM4L2z7HZkxZg" />
 </head>

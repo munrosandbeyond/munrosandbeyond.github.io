@@ -1,0 +1,53 @@
+<div class="quick-facts">
+  <h4 class="quick-facts-title">Quick Facts</h4>
+  <div class="quick-facts-grid">
+    {% if include.distance %}
+    <div class="fact">
+      <span class="fact-label">Distance</span>
+      <span class="fact-value">{{ include.distance }}</span>
+    </div>
+    {% endif %}
+    {% if include.elevation %}
+    <div class="fact">
+      <span class="fact-label">Elevation Gain</span>
+      <span class="fact-value">{{ include.elevation }}</span>
+    </div>
+    {% endif %}
+    {% if include.time %}
+    <div class="fact">
+      <span class="fact-label">Time</span>
+      <span class="fact-value">{{ include.time }}</span>
+    </div>
+    {% endif %}
+    {% if include.difficulty %}
+    <div class="fact">
+      <span class="fact-label">Difficulty</span>
+      <span class="fact-value">{{ include.difficulty }}</span>
+    </div>
+    {% endif %}
+    {% if include.start %}
+    <div class="fact">
+      <span class="fact-label">Start Point</span>
+      <span class="fact-value">{{ include.start }}</span>
+    </div>
+    {% endif %}
+    {% if include.season %}
+    <div class="fact">
+      <span class="fact-label">Best Season</span>
+      <span class="fact-value">{{ include.season }}</span>
+    </div>
+    {% endif %}
+    {% if include.peaks %}
+    <div class="fact">
+      <span class="fact-label">Peaks</span>
+      <span class="fact-value">{{ include.peaks }}</span>
+    </div>
+    {% endif %}
+    {% if include.map %}
+    <div class="fact">
+      <span class="fact-label">Map</span>
+      <span class="fact-value">{{ include.map }}</span>
+    </div>
+    {% endif %}
+  </div>
+</div>

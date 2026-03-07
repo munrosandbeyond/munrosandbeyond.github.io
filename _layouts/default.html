@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include head.html %}
+<body>
+
+  <nav class="site-nav">
+    <div class="nav-inner">
+      <a class="site-logo" href="/">Munros &amp; Beyond</a>
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/munros.html">Munros</a>
+        <a href="/archive.html">Archive</a>
+        <a href="/about.html">About</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="page-content" aria-label="Content">
+    {{ content }}
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p>&copy; {{ "now" | date: "%Y" }} {{ site.author }} &middot; {{ site.title }}</p>
+    </div>
+  </footer>
+
+  <!-- Lightbox for images -->
+  <div class="lightbox-overlay" id="lightbox">
+    <img src="" alt="" id="lightbox-img">
+  </div>
+
+  <script>
+  (function() {
+    var lightbox = document.getElementById('lightbox');
+    var lightboxImg = document.getElementById('lightbox-img');
+
+    document.addEventListener('click', function(e) {
+      if (e.target.matches('.post-content figure img')) {
+        lightboxImg.src = e.target.src;
+        lightboxImg.alt = e.target.alt;
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+    });
+
+    lightbox.addEventListener('click', function() {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    });
+  })();
+  </script>
+
+</body>
+</html>

@@ -17,6 +17,11 @@ layout: default
 
   <div id="munro-map" class="munro-map"></div>
 
+  <div class="progress-chart-section">
+    <h2>Progress Over Time</h2>
+    <canvas id="progress-chart" class="progress-chart"></canvas>
+  </div>
+
   <div class="munros-list-section">
     <h2>Completed Munros</h2>
     <div class="munros-list-controls">
@@ -344,11 +349,11 @@ var completed = [
   {name:"Carn Mairg",lat:56.5864,lng:-4.1842,date:"2025-02-22",note:""},
   {name:"Meall na Aighean",lat:56.5756,lng:-4.1758,date:"2025-02-22",note:""},
   {name:"Beinn Mhanach",lat:56.4508,lng:-4.7422,date:"2025-03-01",note:""},
-  {name:"An Socach",lat:57.3050,lng:-5.2689,date:"2025-04-19",note:""},
-  {name:"Sgurr nan Ceathreamhnan",lat:57.3131,lng:-5.2119,date:"2025-04-19",note:""},
-  {name:"Mullach na Dheiragain",lat:57.3042,lng:-5.2303,date:"2025-04-19",note:""},
-  {name:"Beinn Fhada",lat:57.2722,lng:-5.2006,date:"2025-04-20",note:""},
-  {name:"A'Ghlas-bheinn",lat:57.2689,lng:-5.1972,date:"2025-04-20",note:""},
+  {name:"An Socach",lat:57.3050,lng:-5.2689,date:"2025-04-19",note:"",blog:"/2025/10/04/affric-blog.html"},
+  {name:"Sgurr nan Ceathreamhnan",lat:57.3131,lng:-5.2119,date:"2025-04-19",note:"",blog:"/2025/10/04/affric-blog.html"},
+  {name:"Mullach na Dheiragain",lat:57.3042,lng:-5.2303,date:"2025-04-19",note:"",blog:"/2025/10/04/affric-blog.html"},
+  {name:"Beinn Fhada",lat:57.2722,lng:-5.2006,date:"2025-04-20",note:"",blog:"/2025/10/04/affric-blog.html"},
+  {name:"A'Ghlas-bheinn",lat:57.2689,lng:-5.1972,date:"2025-04-20",note:"",blog:"/2025/10/04/affric-blog.html"},
   {name:"Meall Glas",lat:56.4486,lng:-4.5589,date:"2025-04-26",note:""},
   {name:"Carn Ghluasaid",lat:57.1614,lng:-5.0639,date:"2025-05-03",note:""},
   {name:"Sgurr nan Conbhairean",lat:57.1656,lng:-5.1050,date:"2025-05-03",note:""},
@@ -429,6 +434,7 @@ completed.forEach(function(m) {
   var dateStr = new Date(m.date).toLocaleDateString('en-GB', {day:'numeric',month:'short',year:'numeric'});
   var popup = '<div class="munro-popup"><strong>' + m.name + '</strong><br><span class="popup-date">' + dateStr + '</span>';
   if (m.note) popup += '<br><em>' + m.note + '</em>';
+  if (m.blog) popup += '<br><a href="' + m.blog + '" class="popup-blog-link">Read the blog &rarr;</a>';
   popup += '</div>';
   L.marker([m.lat, m.lng], {icon: completedIcon}).addTo(map).bindPopup(popup);
 });
@@ -470,6 +476,140 @@ document.querySelectorAll('.sort-btn').forEach(function(btn) {
     renderList(btn.dataset.sort);
   });
 });
+
+// Progress over time chart
+(function drawProgressChart() {
+  var sorted = completed.slice().sort(function(a, b) {
+    return new Date(a.date) - new Date(b.date);
+  });
+
+  // Build cumulative data
+  var points = [];
+  var count = 0;
+  var lastDate = '';
+  sorted.forEach(function(m) {
+    count++;
+    // Group same-day summits
+    if (m.date !== lastDate) {
+      points.push({date: new Date(m.date), count: count});
+    } else {
+      points[points.length - 1].count = count;
+    }
+    lastDate = m.date;
+  });
+
+  var canvas = document.getElementById('progress-chart');
+  if (!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var dpr = window.devicePixelRatio || 1;
+  var rect = canvas.getBoundingClientRect();
+  canvas.width = rect.width * dpr;
+  canvas.height = rect.height * dpr;
+  ctx.scale(dpr, dpr);
+  var W = rect.width;
+  var H = rect.height;
+  var padL = 45, padR = 15, padT = 20, padB = 35;
+  var cW = W - padL - padR;
+  var cH = H - padT - padB;
+
+  var minDate = points[0].date.getTime();
+  var maxDate = points[points.length - 1].date.getTime();
+  var maxCount = 282;
+
+  function xPos(date) { return padL + ((date.getTime() - minDate) / (maxDate - minDate)) * cW; }
+  function yPos(val) { return padT + cH - (val / maxCount) * cH; }
+
+  // Background
+  ctx.fillStyle = '#f8f6f3';
+  ctx.fillRect(0, 0, W, H);
+
+  // Target line (282)
+  ctx.setLineDash([6, 4]);
+  ctx.strokeStyle = '#ccc';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(padL, yPos(282));
+  ctx.lineTo(W - padR, yPos(282));
+  ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.font = '10px Inter, sans-serif';
+  ctx.fillStyle = '#aaa';
+  ctx.textAlign = 'left';
+  ctx.fillText('282', 4, yPos(282) + 4);
+
+  // Horizontal grid
+  ctx.strokeStyle = '#e8e4df';
+  ctx.lineWidth = 0.5;
+  [50, 100, 150, 200, 250].forEach(function(v) {
+    ctx.beginPath();
+    ctx.moveTo(padL, yPos(v));
+    ctx.lineTo(W - padR, yPos(v));
+    ctx.stroke();
+    ctx.fillStyle = '#bbb';
+    ctx.fillText(v, 4, yPos(v) + 4);
+  });
+
+  // Year labels
+  ctx.textAlign = 'center';
+  ctx.fillStyle = '#999';
+  ctx.font = '11px Inter, sans-serif';
+  var startYear = points[0].date.getFullYear();
+  var endYear = points[points.length - 1].date.getFullYear();
+  for (var y = startYear; y <= endYear; y++) {
+    var d = new Date(y, 0, 1);
+    if (d.getTime() >= minDate && d.getTime() <= maxDate) {
+      var x = xPos(d);
+      ctx.fillText(y, x, H - 8);
+      ctx.strokeStyle = '#e8e4df';
+      ctx.lineWidth = 0.5;
+      ctx.beginPath();
+      ctx.moveTo(x, padT);
+      ctx.lineTo(x, padT + cH);
+      ctx.stroke();
+    }
+  }
+
+  // Filled area
+  ctx.beginPath();
+  ctx.moveTo(xPos(points[0].date), yPos(0));
+  points.forEach(function(p) {
+    ctx.lineTo(xPos(p.date), yPos(p.count));
+  });
+  ctx.lineTo(xPos(points[points.length - 1].date), yPos(0));
+  ctx.closePath();
+  var grad = ctx.createLinearGradient(0, padT, 0, padT + cH);
+  grad.addColorStop(0, 'rgba(196, 90, 60, 0.25)');
+  grad.addColorStop(1, 'rgba(196, 90, 60, 0.02)');
+  ctx.fillStyle = grad;
+  ctx.fill();
+
+  // Line
+  ctx.beginPath();
+  points.forEach(function(p, i) {
+    if (i === 0) ctx.moveTo(xPos(p.date), yPos(p.count));
+    else ctx.lineTo(xPos(p.date), yPos(p.count));
+  });
+  ctx.strokeStyle = '#c45a3c';
+  ctx.lineWidth = 2.5;
+  ctx.lineJoin = 'round';
+  ctx.stroke();
+
+  // Current count dot
+  var last = points[points.length - 1];
+  ctx.beginPath();
+  ctx.arc(xPos(last.date), yPos(last.count), 5, 0, Math.PI * 2);
+  ctx.fillStyle = '#c45a3c';
+  ctx.fill();
+  ctx.strokeStyle = '#fff';
+  ctx.lineWidth = 2;
+  ctx.stroke();
+
+  // Label
+  ctx.font = 'bold 12px Inter, sans-serif';
+  ctx.fillStyle = '#c45a3c';
+  ctx.textAlign = 'right';
+  ctx.fillText(last.count, xPos(last.date) - 10, yPos(last.count) + 4);
+})();
 
 })();
 </script>

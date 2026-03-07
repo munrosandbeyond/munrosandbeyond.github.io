@@ -153,7 +153,8 @@ body {
   font-style: italic;
 }
 
-.hero-stats .stat {
+.hero-stats .stat,
+.hero-stats .stat:visited {
   display: inline-block;
   font-family: var(--font-heading);
   font-size: 0.85rem;
@@ -164,6 +165,14 @@ body {
   padding: 0.5rem 1.2rem;
   border-radius: 50px;
   border: 1px solid rgba(255,255,255,0.2);
+  color: #fff !important;
+  text-decoration: none;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.hero-stats .stat:hover {
+  background: rgba(255,255,255,0.25);
+  border-color: rgba(255,255,255,0.4);
 }
 
 .hero-scroll-btn {
@@ -1108,14 +1117,42 @@ body {
   line-height: 1.6;
 }
 
-.about-stat-bar {
+.about-progress-bar,
+.about-progress-bar:visited {
   display: flex;
-  gap: 3rem;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
   margin: 2rem 0;
-  padding: 1.5rem 2rem;
+  padding: 1.8rem 2.5rem;
   background: linear-gradient(135deg, #f8f6f3 0%, #f0ece6 100%);
   border-radius: 12px;
   border: 1px solid var(--color-border);
+  text-decoration: none;
+  color: inherit !important;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.about-progress-bar:hover {
+  border-color: var(--color-accent);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+}
+
+.about-progress-arrow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--color-accent);
+}
+
+.about-progress-pct {
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-light);
+  margin-top: 0.2rem;
 }
 
 .about-stat {
@@ -1126,7 +1163,7 @@ body {
 
 .about-stat-number {
   font-family: var(--font-heading);
-  font-size: 2.5rem;
+  font-size: 2.8rem;
   font-weight: 800;
   color: var(--color-accent);
   line-height: 1;
@@ -1336,6 +1373,47 @@ body {
 .popup-remaining {
   color: #999;
   font-size: 0.78rem;
+}
+
+.popup-blog-link {
+  display: inline-block;
+  margin-top: 0.3rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--color-accent) !important;
+  text-decoration: none;
+}
+
+.popup-blog-link:hover {
+  text-decoration: underline;
+}
+
+/* Progress chart */
+.progress-chart-section {
+  max-width: var(--wide-width);
+  margin: 0 auto;
+  padding: 0 2rem 2rem;
+}
+
+.progress-chart-section h2 {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0 0 1rem;
+  text-align: center;
+}
+
+.progress-chart {
+  width: 100%;
+  height: 220px;
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+}
+
+@media (max-width: 600px) {
+  .progress-chart {
+    height: 170px;
+  }
 }
 
 /* Munros list */

@@ -28,7 +28,7 @@ layout: default
       </div>
 
       <h2>The Author</h2>
-      <p>I'm Dewi, based in Glasgow. I spend as much time as possible in the Scottish Highlands, and occasionally venture further afield when the mountains call. This blog is a way to remember the good days (and the bad ones), and to share some of the incredible places I've been lucky enough to visit.</p>
+      <p>I'm Dewi, based in Glasgow. I spend as much time as possible in the Scottish Highlands, and occasionally venture further afield when the mountains call. This blog is a way to remember and share some of the incredible places I've been lucky enough to visit.</p>
 
       <h2>What You'll Find Here</h2>
       <ul>

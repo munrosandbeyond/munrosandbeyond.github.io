@@ -429,12 +429,68 @@ var remainingIcon = L.divIcon({
   iconAnchor: [6, 6]
 });
 
+// Strava activity lookup by date
+var stravaByDate = {
+  "2018-10-27": 1930430812,
+  "2019-06-22": 2471586124,
+  "2019-06-29": 2490721000,
+  "2019-07-03": 2501496907,
+  "2020-07-12": 3752415740,
+  "2020-08-01": 3847744347,
+  "2020-08-11": 3897953141,
+  "2020-08-20": 3940535262,
+  "2020-08-23": 3955278318,
+  "2020-08-24": 3958983080,
+  "2020-08-30": 3987571629,
+  "2020-09-17": 4074193648,
+  "2020-09-18": 4078067062,
+  "2021-08-24": 5882355514,
+  "2021-09-04": 5904863334,
+  "2021-09-05": 5911387051,
+  "2021-12-19": 6404816499,
+  "2022-08-28": 7718588779,
+  "2022-09-01": 7762370309,
+  "2022-12-20": 8271152044,
+  "2023-10-06": 9988657287,
+  "2024-04-01": 11092563581,
+  "2024-10-12": 12637882872,
+  "2024-10-13": 12645423400,
+  "2024-10-19": 12692683346,
+  "2024-11-02": 12805851734,
+  "2024-11-03": 12814659775,
+  "2024-11-09": 12859467790,
+  "2025-01-02": 13277003777,
+  "2025-01-03": 13277007695,
+  "2025-02-15": 13633436939,
+  "2025-02-22": 13697809424,
+  "2025-03-01": 13759510155,
+  "2025-04-19": 14241770923,
+  "2025-04-20": 14241725320,
+  "2025-04-26": 14293282003,
+  "2025-05-03": 14366253823,
+  "2025-05-04": 14378203552,
+  "2025-05-05": 14384155993,
+  "2025-05-24": 14582573569,
+  "2025-06-01": 14664702180,
+  "2025-06-20": 14879554406,
+  "2025-06-21": 14879554991,
+  "2025-06-28": 14943802582,
+  "2025-08-10": 15412267627,
+  "2025-10-18": 16182860330,
+  "2025-10-25": 16251619490,
+  "2025-11-01": 16324591514,
+  "2025-11-15": 16465575144,
+  "2025-11-22": 16536467165,
+  "2025-12-23": 16820156533
+};
+
 // Plot completed munros
 completed.forEach(function(m) {
   var dateStr = new Date(m.date).toLocaleDateString('en-GB', {day:'numeric',month:'short',year:'numeric'});
+  var stravaId = stravaByDate[m.date];
   var popup = '<div class="munro-popup"><strong>' + m.name + '</strong><br><span class="popup-date">' + dateStr + '</span>';
-  if (m.note) popup += '<br><em>' + m.note + '</em>';
   if (m.blog) popup += '<br><a href="' + m.blog + '" class="popup-blog-link">Read the blog &rarr;</a>';
+  if (stravaId) popup += '<br><a href="https://www.strava.com/activities/' + stravaId + '" target="_blank" class="popup-strava-link">View on Strava</a>';
   popup += '</div>';
   L.marker([m.lat, m.lng], {icon: completedIcon}).addTo(map).bindPopup(popup);
 });
@@ -457,10 +513,11 @@ function renderList(sortBy) {
   var html = '';
   sorted.forEach(function(m) {
     var dateStr = new Date(m.date).toLocaleDateString('en-GB', {day:'numeric',month:'short',year:'numeric'});
+    var stravaId = stravaByDate[m.date];
     html += '<div class="munro-list-item">';
     html += '<span class="munro-list-name">' + m.name + '</span>';
     html += '<span class="munro-list-date">' + dateStr + '</span>';
-    if (m.note) html += '<span class="munro-list-note">' + m.note + '</span>';
+    if (stravaId) html += '<a href="https://www.strava.com/activities/' + stravaId + '" target="_blank" class="munro-list-strava">Strava</a>';
     html += '</div>';
   });
   document.getElementById('munros-list').innerHTML = html;

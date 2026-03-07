@@ -21,10 +21,13 @@ image: /assets/your-hero-image.JPG
 category: scotland         # or "further-afield"
 thumbnail: "/assets/your-thumbnail.JPG"
 strava_id: 12345678        # optional, for auto-embed
+location_lat: 56.83        # optional, for World Map pin
+location_lng: -4.97
 ---
 ```
 3. The `category` field affects the URL: `category: scotland` generates `/scotland/YYYY/MM/DD/slug.html`
 4. Posts appear on the homepage (all posts), and on their category page (Scotland Trips or Further Afield)
+5. If `location_lat`/`location_lng` are set, a pin appears automatically on the World Map page
 
 ## Adding a Route Map
 

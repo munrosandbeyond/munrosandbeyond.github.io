@@ -32,6 +32,7 @@ layout: default
       </a>
 
       <h2>The Author</h2>
+      <img src="/assets/profile.jpg" alt="Dewi on a trail in the Grand Canyon" class="about-profile-img">
       <p>I'm Dewi, based in Glasgow. I spend as much time as possible in the Scottish Highlands, and occasionally venture further afield when the mountains call. This blog is a way to remember and share some of the incredible places I've been lucky enough to visit.</p>
 
       <p><a href="https://www.strava.com/athletes/12551262" target="_blank">Follow me on Strava</a></p>

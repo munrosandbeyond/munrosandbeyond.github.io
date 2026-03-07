@@ -9,6 +9,8 @@ image: /assets/DSC_7618.JPG
 category: scotland
 thumbnail: "/assets/DSC_7618.JPG"
 strava_id: 14879554991
+location_lat: 56.83
+location_lng: -4.97
 ---
 
 ## Summer Solstice: Corrour to Fort William via 6 Munros

@@ -9,6 +9,8 @@ image: /assets/IMG_2114.JPG
 tags: [munro, hiking, affric, scotland, outdoors]
 category: scotland
 thumbnail: "/assets/IMG_2114.JPG"
+location_lat: 57.27
+location_lng: -5.20
 ---
 
 ## Easter Weekend in Glen Affric

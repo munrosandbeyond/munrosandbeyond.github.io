@@ -1,0 +1,78 @@
+---
+layout: default
+---
+
+<div class="world-map-page">
+  <div class="category-header">
+    <h1>World Map</h1>
+    <p>Every adventure, pinned.</p>
+  </div>
+
+  <div id="world-map" class="world-map"></div>
+</div>
+
+<script>
+(function() {
+  var posts = [
+    {% for post in site.posts %}
+    {% if post.location_lat %}
+    {
+      title: {{ post.title | jsonify }},
+      description: {{ post.description | jsonify }},
+      url: "{{ post.url }}",
+      thumbnail: "{{ post.thumbnail | default: post.image }}",
+      tripDate: {{ post.trip_date | default: post.date | date: "%B %Y" | jsonify }},
+      category: {{ post.category | jsonify }},
+      lat: {{ post.location_lat }},
+      lng: {{ post.location_lng }}
+    },
+    {% endif %}
+    {% endfor %}
+  ];
+
+  var map = L.map('world-map', {
+    scrollWheelZoom: true,
+    zoomControl: true
+  }).setView([40, 10], 3);
+
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+    maxZoom: 19,
+    attribution: '&copy; OpenStreetMap &copy; CARTO'
+  }).addTo(map);
+
+  var pinColor = '#e8873c';
+
+  var pinIcon = L.divIcon({
+    className: 'world-map-pin',
+    html: '<div class="world-map-pin-dot"></div>',
+    iconSize: [18, 18],
+    iconAnchor: [9, 9]
+  });
+
+  var bounds = L.latLngBounds();
+
+  posts.forEach(function(p) {
+    var popupHtml = '<div class="world-map-popup">';
+    if (p.thumbnail) {
+      popupHtml += '<div class="world-map-popup-img" style="background-image:url(\'' + p.thumbnail + '\')"></div>';
+    }
+    popupHtml += '<div class="world-map-popup-body">';
+    popupHtml += '<strong>' + p.title + '</strong>';
+    popupHtml += '<span class="world-map-popup-date">' + p.tripDate + '</span>';
+    popupHtml += '<p>' + p.description + '</p>';
+    popupHtml += '<a href="' + p.url + '" class="world-map-popup-link">Read more &rarr;</a>';
+    popupHtml += '</div></div>';
+
+    L.marker([p.lat, p.lng], {icon: pinIcon})
+      .addTo(map)
+      .bindPopup(popupHtml, {maxWidth: 280, minWidth: 220});
+
+    bounds.extend([p.lat, p.lng]);
+  });
+
+  // Fit to show all pins with some padding
+  if (posts.length > 0) {
+    map.fitBounds(bounds, {padding: [60, 60], maxZoom: 6});
+  }
+})();
+</script>

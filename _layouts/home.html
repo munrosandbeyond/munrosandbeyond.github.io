@@ -25,9 +25,6 @@ layout: default
       <div class="card-body">
         <div class="card-meta">
           <time>{{ post.date | date: "%B %Y" }}</time>
-          {% if post.tags.size > 0 %}
-            <span class="card-tag">{{ post.tags | first }}</span>
-          {% endif %}
         </div>
         <h3 class="card-title">{{ post.title }}</h3>
         <p class="card-excerpt">{{ post.description }}</p>

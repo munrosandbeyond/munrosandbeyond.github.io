@@ -28,15 +28,6 @@
     '/assets/gpx/solstice_day3_morning_hike.gpx'
   ];
 
-  var munros = [
-    {name: 'Stob Ban', lat: 56.8481, lng: -4.9797},
-    {name: 'Stob Choire Claurigh', lat: 56.8514, lng: -4.9333},
-    {name: 'Stob Coire an Laoigh', lat: 56.8458, lng: -4.9550},
-    {name: 'Sgurr Choinnich Mor', lat: 56.8344, lng: -5.0397},
-    {name: 'Aonach Beag', lat: 56.8156, lng: -5.0792},
-    {name: 'Aonach Mor', lat: 56.8219, lng: -5.0903}
-  ];
-
   var bivvy = {lat: 56.7894, lng: -4.6600, label: 'Bivvy spot', elev: '937m'};
 
   var map = L.map('route-map', {scrollWheelZoom: false}).setView([56.81, -4.85], 12);
@@ -46,11 +37,7 @@
     attribution: '&copy; OpenStreetMap &copy; CARTO'
   }).addTo(map);
 
-  var allElevations = [];
-  var dayBoundaries = [];
-  var totalDist = 0;
-  var maxElev = 0;
-  var totalGain = 0;
+  var dayData = [null, null, null];
   var loadedCount = 0;
   var bounds = L.latLngBounds();
 
@@ -112,14 +99,12 @@
         }
 
         var sampleInterval = Math.max(1, Math.floor(data.coords.length / 200));
-        dayBoundaries.push(allElevations.length);
+        var sampledElevs = [];
         for (var i = 0; i < data.coords.length; i += sampleInterval) {
-          allElevations.push(data.elevations[i]);
-          if (data.elevations[i] > maxElev) maxElev = data.elevations[i];
+          sampledElevs.push(data.elevations[i]);
         }
 
-        totalDist += dayDist;
-        totalGain += dayGain;
+        dayData[index] = {dist: dayDist, gain: dayGain, elevations: sampledElevs};
         loadedCount++;
 
         if (loadedCount === 3) finalize();
@@ -127,18 +112,23 @@
   }
 
   function finalize() {
-    map.fitBounds(bounds, {padding: [30, 30]});
+    // Assemble elevation data in correct day order
+    var allElevations = [];
+    var dayBoundaries = [];
+    var totalDist = 0;
+    var totalGain = 0;
+    var maxElev = 0;
+    for (var d = 0; d < 3; d++) {
+      dayBoundaries.push(allElevations.length);
+      for (var i = 0; i < dayData[d].elevations.length; i++) {
+        allElevations.push(dayData[d].elevations[i]);
+        if (dayData[d].elevations[i] > maxElev) maxElev = dayData[d].elevations[i];
+      }
+      totalDist += dayData[d].dist;
+      totalGain += dayData[d].gain;
+    }
 
-    // Munro summit markers
-    var munroIcon = L.divIcon({
-      className: 'route-marker',
-      html: '<div class="route-marker-dot" style="background:#e8873c;border-color:#c96a22;width:12px;height:12px;border-radius:50%;border:2px solid;"></div>',
-      iconSize: [16, 16], iconAnchor: [8, 8]
-    });
-    munros.forEach(function(m) {
-      L.marker([m.lat, m.lng], {icon: munroIcon}).addTo(map)
-        .bindPopup('<div class="munro-popup"><strong>' + m.name + '</strong></div>');
-    });
+    map.fitBounds(bounds, {padding: [30, 30]});
 
     // Bivvy marker
     var campIcon = L.divIcon({
@@ -153,10 +143,10 @@
     document.getElementById('max-elev').textContent = Math.round(maxElev) + 'm';
     document.getElementById('total-gain').textContent = Math.round(totalGain) + 'm';
 
-    drawElevation();
+    drawElevation(allElevations, dayBoundaries, maxElev);
   }
 
-  function drawElevation() {
+  function drawElevation(allElevations, dayBoundaries, maxElev) {
     var canvas = document.getElementById('elevation-chart');
     var ctx = canvas.getContext('2d');
     var dpr = window.devicePixelRatio || 1;

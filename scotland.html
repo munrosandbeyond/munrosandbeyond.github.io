@@ -1,0 +1,28 @@
+---
+layout: default
+---
+
+<div class="category-page">
+  <div class="category-header">
+    <h1>Scotland Trips</h1>
+    <p>Adventures across Scotland's mountains, glens and lochs.</p>
+  </div>
+
+  <div class="posts-grid category-grid">
+    {% for post in site.posts %}
+      {% if post.category == "scotland" %}
+      <a href="{{ post.url }}" class="post-card">
+        <div class="card-image" style="background-image: url('{{ post.thumbnail | default: post.image }}');"></div>
+        <div class="card-body">
+          <div class="card-meta">
+            <time>{{ post.date | date: "%B %Y" }}</time>
+          </div>
+          <h3 class="card-title">{{ post.title }}</h3>
+          <p class="card-excerpt">{{ post.description }}</p>
+          <span class="card-link">Read more &rarr;</span>
+        </div>
+      </a>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>

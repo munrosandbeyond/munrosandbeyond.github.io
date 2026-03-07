@@ -6,6 +6,7 @@ date: 2025-10-04
 author: Dewi Gould
 image: /assets/IMG_2114.JPG
 tags: [munro, hiking, affric, scotland, outdoors]
+category: scotland
 thumbnail: "/assets/IMG_2114.JPG"
 ---
 

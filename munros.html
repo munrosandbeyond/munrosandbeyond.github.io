@@ -22,6 +22,38 @@ layout: default
     <canvas id="progress-chart" class="progress-chart"></canvas>
   </div>
 
+  <div class="munro-stats-section">
+    <h2>Munro Stats</h2>
+    <div class="munro-stats-headline">
+      <div class="munro-stat-box">
+        <span class="munro-stat-number">904 km</span>
+        <span class="munro-stat-label">Distance Covered</span>
+      </div>
+      <div class="munro-stat-box">
+        <span class="munro-stat-number">59,394 m</span>
+        <span class="munro-stat-label">Elevation Climbed</span>
+      </div>
+      <div class="munro-stat-box">
+        <span class="munro-stat-number">191 hrs</span>
+        <span class="munro-stat-label">Time on the Hills</span>
+      </div>
+    </div>
+    <div class="munro-stats-charts">
+      <div class="munro-stat-chart-wrap">
+        <h3>Cumulative Distance</h3>
+        <canvas id="cum-dist-chart" class="progress-chart"></canvas>
+      </div>
+      <div class="munro-stat-chart-wrap">
+        <h3>Cumulative Elevation</h3>
+        <canvas id="cum-elev-chart" class="progress-chart"></canvas>
+      </div>
+      <div class="munro-stat-chart-wrap">
+        <h3>Cumulative Time</h3>
+        <canvas id="cum-time-chart" class="progress-chart"></canvas>
+      </div>
+    </div>
+  </div>
+
   <div class="munros-list-section">
     <h2>Search All Munros</h2>
     <input type="text" id="munro-search" class="munro-search" placeholder="Search by name (e.g. Ben Nevis)...">
@@ -728,5 +760,112 @@ document.querySelectorAll('.sort-btn').forEach(function(btn) {
   ctx.fillText(last.count, xPos(last.date) - 10, yPos(last.count) + 4);
 })();
 
+})();
+
+// Cumulative stats charts
+(function() {
+  var stats = [{"date":"2018-10-27","dist":11.7,"elev":602,"time":166},{"date":"2019-06-22","dist":25.8,"elev":1306,"time":340},{"date":"2019-06-29","dist":40.8,"elev":2102,"time":517},{"date":"2019-07-03","dist":51.1,"elev":2967,"time":626},{"date":"2020-07-12","dist":67.0,"elev":3971,"time":798},{"date":"2020-08-01","dist":89.6,"elev":5630,"time":1000},{"date":"2020-08-11","dist":104.7,"elev":6523,"time":1163},{"date":"2020-08-20","dist":125.9,"elev":7518,"time":1348},{"date":"2020-08-23","dist":141.2,"elev":8521,"time":1520},{"date":"2020-08-24","dist":154.0,"elev":9849,"time":1705},{"date":"2020-08-30","dist":180.6,"elev":11753,"time":2007},{"date":"2020-09-17","dist":195.5,"elev":13080,"time":2184},{"date":"2020-09-18","dist":222.6,"elev":14672,"time":2492},{"date":"2021-08-24","dist":235.7,"elev":15526,"time":2606},{"date":"2021-09-04","dist":246.5,"elev":16698,"time":2731},{"date":"2021-09-05","dist":260.1,"elev":17638,"time":2901},{"date":"2021-12-19","dist":275.5,"elev":18804,"time":3094},{"date":"2022-08-28","dist":289.1,"elev":19912,"time":3183},{"date":"2022-09-01","dist":297.3,"elev":20553,"time":3242},{"date":"2022-12-20","dist":310.9,"elev":21305,"time":3409},{"date":"2023-10-06","dist":332.6,"elev":22977,"time":3662},{"date":"2024-04-01","dist":342.1,"elev":23909,"time":3762},{"date":"2024-10-12","dist":358.1,"elev":24793,"time":3991},{"date":"2024-10-13","dist":373.0,"elev":25952,"time":4190},{"date":"2024-10-19","dist":382.9,"elev":26823,"time":4339},{"date":"2024-11-02","dist":398.3,"elev":27428,"time":4519},{"date":"2024-11-03","dist":420.9,"elev":28713,"time":4794},{"date":"2024-11-09","dist":434.4,"elev":29521,"time":4960},{"date":"2025-01-02","dist":447.4,"elev":30286,"time":5150},{"date":"2025-01-03","dist":470.6,"elev":31579,"time":5560},{"date":"2025-02-15","dist":484.4,"elev":32489,"time":5702},{"date":"2025-02-22","dist":505.7,"elev":33843,"time":5936},{"date":"2025-03-01","dist":529.4,"elev":34701,"time":6128},{"date":"2025-04-19","dist":560.0,"elev":34701,"time":6499},{"date":"2025-04-20","dist":585.1,"elev":36162,"time":6886},{"date":"2025-04-26","dist":597.9,"elev":36978,"time":7114},{"date":"2025-05-03","dist":616.5,"elev":38146,"time":7439},{"date":"2025-05-04","dist":645.0,"elev":39871,"time":7919},{"date":"2025-05-05","dist":660.2,"elev":40964,"time":8183},{"date":"2025-05-24","dist":698.1,"elev":42926,"time":8633},{"date":"2025-06-01","dist":712.7,"elev":44296,"time":8846},{"date":"2025-06-20","dist":717.8,"elev":44841,"time":8913},{"date":"2025-06-21","dist":755.6,"elev":47379,"time":9475},{"date":"2025-06-28","dist":791.1,"elev":50028,"time":9837},{"date":"2025-08-10","dist":805.4,"elev":51309,"time":10013},{"date":"2025-10-18","dist":814.4,"elev":52085,"time":10168},{"date":"2025-10-25","dist":840.6,"elev":53864,"time":10470},{"date":"2025-11-01","dist":855.6,"elev":55552,"time":10764},{"date":"2025-11-15","dist":867.8,"elev":56745,"time":11010},{"date":"2025-11-22","dist":881.2,"elev":58036,"time":11269},{"date":"2025-12-23","dist":903.6,"elev":59394,"time":11484}];
+
+  var points = stats.map(function(s) {
+    return {date: new Date(s.date), dist: s.dist, elev: s.elev, time: s.time};
+  });
+
+  function drawCumChart(canvasId, field, maxVal, unit, color, gridSteps) {
+    var canvas = document.getElementById(canvasId);
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var dpr = window.devicePixelRatio || 1;
+    var rect = canvas.getBoundingClientRect();
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    ctx.scale(dpr, dpr);
+    var W = rect.width;
+    var H = rect.height;
+    var padL = 55, padR = 15, padT = 15, padB = 35;
+    var cW = W - padL - padR;
+    var cH = H - padT - padB;
+
+    var minDate = points[0].date.getTime();
+    var maxDate = points[points.length - 1].date.getTime();
+
+    function xPos(d) { return padL + ((d.getTime() - minDate) / (maxDate - minDate)) * cW; }
+    function yPos(v) { return padT + cH - (v / maxVal) * cH; }
+
+    // Background
+    ctx.fillStyle = '#f8f6f3';
+    ctx.fillRect(0, 0, W, H);
+
+    // Grid
+    ctx.strokeStyle = '#e8e4df';
+    ctx.lineWidth = 0.5;
+    ctx.font = '10px Inter, sans-serif';
+    ctx.fillStyle = '#bbb';
+    ctx.textAlign = 'right';
+    gridSteps.forEach(function(v) {
+      ctx.beginPath();
+      ctx.moveTo(padL, yPos(v));
+      ctx.lineTo(W - padR, yPos(v));
+      ctx.stroke();
+      var label = v >= 1000 ? (v/1000) + 'k' : v;
+      ctx.fillText(label + unit, padL - 6, yPos(v) + 4);
+    });
+
+    // Year labels
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#999';
+    ctx.font = '11px Inter, sans-serif';
+    var startYear = points[0].date.getFullYear();
+    var endYear = points[points.length - 1].date.getFullYear();
+    for (var y = startYear; y <= endYear; y++) {
+      var d = new Date(y, 0, 1);
+      if (d.getTime() >= minDate && d.getTime() <= maxDate) {
+        var x = xPos(d);
+        ctx.fillText(y, x, H - 8);
+        ctx.strokeStyle = '#e8e4df';
+        ctx.lineWidth = 0.5;
+        ctx.beginPath();
+        ctx.moveTo(x, padT);
+        ctx.lineTo(x, padT + cH);
+        ctx.stroke();
+      }
+    }
+
+    // Fill
+    ctx.beginPath();
+    ctx.moveTo(xPos(points[0].date), yPos(0));
+    points.forEach(function(p) { ctx.lineTo(xPos(p.date), yPos(p[field])); });
+    ctx.lineTo(xPos(points[points.length - 1].date), yPos(0));
+    ctx.closePath();
+    var grad = ctx.createLinearGradient(0, padT, 0, padT + cH);
+    grad.addColorStop(0, color + '40');
+    grad.addColorStop(1, color + '05');
+    ctx.fillStyle = grad;
+    ctx.fill();
+
+    // Line
+    ctx.beginPath();
+    points.forEach(function(p, i) {
+      if (i === 0) ctx.moveTo(xPos(p.date), yPos(p[field]));
+      else ctx.lineTo(xPos(p.date), yPos(p[field]));
+    });
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 2.5;
+    ctx.lineJoin = 'round';
+    ctx.stroke();
+
+    // End dot
+    var last = points[points.length - 1];
+    ctx.beginPath();
+    ctx.arc(xPos(last.date), yPos(last[field]), 4, 0, Math.PI * 2);
+    ctx.fillStyle = color;
+    ctx.fill();
+    ctx.strokeStyle = '#fff';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+  }
+
+  drawCumChart('cum-dist-chart', 'dist', 1000, 'km', '#4a90d9', [200, 400, 600, 800, 1000]);
+  drawCumChart('cum-elev-chart', 'elev', 65000, 'm', '#5bb563', [10000, 20000, 30000, 40000, 50000, 60000]);
+  drawCumChart('cum-time-chart', 'time', 13000, 'min', '#e89b3f', [2000, 4000, 6000, 8000, 10000, 12000]);
 })();
 </script>

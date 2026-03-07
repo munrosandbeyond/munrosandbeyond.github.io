@@ -1465,6 +1465,83 @@ body {
   }
 }
 
+/* Munro stats */
+.munro-stats-section {
+  max-width: var(--wide-width);
+  margin: 0 auto;
+  padding: 2rem 2rem 2rem;
+}
+
+.munro-stats-section h2 {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0 0 1.5rem;
+  text-align: center;
+}
+
+.munro-stats-headline {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.munro-stat-box {
+  text-align: center;
+  padding: 1.5rem 2rem;
+  background: #f8f6f3;
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+  min-width: 160px;
+}
+
+.munro-stat-number {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--color-text);
+  letter-spacing: -0.02em;
+}
+
+.munro-stat-label {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--color-text-light);
+  margin-top: 0.25rem;
+}
+
+.munro-stats-charts {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+.munro-stat-chart-wrap h3 {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 0.75rem;
+  text-align: center;
+  color: var(--color-text-light);
+}
+
+@media (max-width: 600px) {
+  .munro-stats-headline {
+    gap: 1rem;
+  }
+  .munro-stat-box {
+    min-width: 0;
+    flex: 1;
+    padding: 1rem;
+  }
+  .munro-stat-number {
+    font-size: 1.3rem;
+  }
+}
+
 /* Munro search */
 .munro-search {
   width: 100%;

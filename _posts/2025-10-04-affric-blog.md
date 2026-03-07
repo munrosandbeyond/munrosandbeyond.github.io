@@ -28,6 +28,8 @@ I drove up to the River Affric car park from Glasgow on the Bank Holiday Friday:
 
 It's a stunning 8-9 mile walk into the Glen, along the side of Loch Affric, to get to the hostel. I didn't see a soul - only adding to the sense of adventure as I headed further from civilisation, not really knowing what to expect at the hostel. I've been to Loch Affric once before, back then it was a glorious heat-wave summer's day. This time the hills were shrouded in cloud, the mountain drama dial was turned to max.
 
+{% include strava-activity.html id="14241766639" %}
+
 At the hostel I was greeted by the warden who showed me around and quickly had a fire going in the kitchen. There was around 8 people I guess, including a few who were camping outside. It's a simple set-up: some basic gas-powered electricity which is turned off in the evenings, no heating and a pretty tepid shower. But the true magic is around the fire in the evening. After getting warm and dry, looking out into the wet and moody emptiness whilst sitting next to a roaring fire was a great way to start the weekend.
 
 <figure>
@@ -51,6 +53,8 @@ It was a desolate and totally isolated walk - after over-taking two people from 
 </div>
 
 There would be the odd moment where the clouds would clear, leaving a beautiful wintry scene. I hadn't expected the snow to be so deep this late, but at points it was up past my knees on the way up to the third and final munro. It was a long slog, and as I reached the summit it was a total whiteout - I had to use the GPS and compass to find the way back down.
+
+{% include strava-activity.html id="14241770923" %}
 
 Back in the hostel the evening was full of sharing adventures from the day around the fire. One lady cooked a whole crumble from scratch in the hostel oven and shared it around. This really put to shame everyone else's dehydrated meals.
 
@@ -92,6 +96,8 @@ I retraced my steps and then turned right to head up the back of Beinn Fhada. De
   </figure>
 </div>
 
+{% include strava-activity.html id="14241725320" %}
+
 I was back at the hostel early afternoon, before it opened back up for the evening, so I grabbed my book and sat with my legs in the river for a while.
 
 The peace and quiet of Glen Affric is very hard to leave. Having experienced such wildly varying conditions, it felt like I'd been away from civilisation for a long time. The sun was shining as I slowly ambled back to the car, my knees protesting against my lack of mountain time in the last few weeks.
@@ -109,3 +115,5 @@ Me: "No..."
 Man on bike: "Don't bother until you've got at least 200 under your belt, that's my advice"
 
 Good words to live by.
+
+{% include strava-activity.html id="14241723100" %}

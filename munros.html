@@ -23,6 +23,10 @@ layout: default
   </div>
 
   <div class="munros-list-section">
+    <h2>Search All Munros</h2>
+    <input type="text" id="munro-search" class="munro-search" placeholder="Search by name (e.g. Ben Nevis)...">
+    <div id="munro-search-results" class="munro-search-results"></div>
+
     <h2>Completed Munros</h2>
     <div class="munros-list-controls">
       <button class="sort-btn active" data-sort="date">By Date</button>
@@ -524,6 +528,62 @@ function renderList(sortBy) {
 }
 
 renderList('date');
+
+// Build blog lookup from completed munros
+var blogByName = {};
+completed.forEach(function(m) {
+  if (m.blog) blogByName[m.name] = m.blog;
+});
+
+// Search
+var searchInput = document.getElementById('munro-search');
+var searchResults = document.getElementById('munro-search-results');
+
+searchInput.addEventListener('input', function() {
+  var q = this.value.trim().toLowerCase();
+  if (q.length < 2) {
+    searchResults.innerHTML = '';
+    return;
+  }
+
+  // Search all munros (completed + remaining)
+  var results = [];
+
+  // Check completed
+  completed.forEach(function(m) {
+    if (m.name.toLowerCase().indexOf(q) !== -1) {
+      results.push({name: m.name, completed: true, date: m.date, blog: m.blog, strava: stravaByDate[m.date]});
+    }
+  });
+
+  // Check remaining
+  allMunros.forEach(function(m) {
+    if (!completedNames[m.name] && m.name.toLowerCase().indexOf(q) !== -1) {
+      results.push({name: m.name, completed: false});
+    }
+  });
+
+  if (results.length === 0) {
+    searchResults.innerHTML = '<div class="search-empty">No munros found</div>';
+    return;
+  }
+
+  var html = '';
+  results.slice(0, 15).forEach(function(r) {
+    html += '<div class="search-result-item">';
+    html += '<span class="search-result-name">' + r.name + '</span>';
+    if (r.completed) {
+      var dateStr = new Date(r.date).toLocaleDateString('en-GB', {day:'numeric',month:'short',year:'numeric'});
+      html += '<span class="search-result-date">' + dateStr + '</span>';
+      if (r.blog) html += '<a href="' + r.blog + '" class="search-result-blog">Read blog</a>';
+      if (r.strava) html += '<a href="https://www.strava.com/activities/' + r.strava + '" target="_blank" class="search-result-strava">Strava</a>';
+    } else {
+      html += '<span class="search-result-remaining">Not yet climbed</span>';
+    }
+    html += '</div>';
+  });
+  searchResults.innerHTML = html;
+});
 
 // Sort buttons
 document.querySelectorAll('.sort-btn').forEach(function(btn) {

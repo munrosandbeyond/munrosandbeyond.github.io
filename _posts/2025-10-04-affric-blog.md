@@ -3,6 +3,7 @@ layout: post
 title: "Easter Weekend in Glen Affric"
 description: "A long weekend based at Glen Affric Youth Hostel"
 date: 2025-10-04
+trip_date: "April 2025"
 author: Dewi Gould
 image: /assets/IMG_2114.JPG
 tags: [munro, hiking, affric, scotland, outdoors]

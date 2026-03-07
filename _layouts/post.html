@@ -7,9 +7,13 @@ layout: default
     <div class="post-hero-overlay"></div>
     <div class="post-hero-content">
       <div class="post-meta-bar">
+        {% if page.trip_date %}
+        <span>{{ page.trip_date }}</span>
+        {% else %}
         <time datetime="{{ page.date | date_to_xmlschema }}">
-          {{ page.date | date: "%B %-d, %Y" }}
+          {{ page.date | date: "%B %Y" }}
         </time>
+        {% endif %}
         <span class="meta-sep">&middot;</span>
         <span>{{ page.author | default: site.author }}</span>
       </div>

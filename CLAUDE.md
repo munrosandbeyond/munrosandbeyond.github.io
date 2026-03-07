@@ -31,18 +31,18 @@ strava_id: 12345678        # optional, for auto-embed
 1. Put GPX files in `assets/gpx/` with descriptive names
 2. Create an include in `_includes/` (e.g. `your-route-map.html`) - see `solstice-route-map.html` or `ak-suu-route-map.html` as templates
 3. The include renders a Leaflet map with the route, munro summit markers, camp/bivvy markers, and a canvas elevation profile
-4. Add `{% include your-route-map.html %}` to the blog post
+4. Add `{% raw %}{% include your-route-map.html %}{% endraw %}` to the blog post
 
 ## Adding a Strava Activity Embed
 
-- Use `{% include strava-activity.html id="ACTIVITY_ID" %}` in the post body
+- Use `{% raw %}{% include strava-activity.html id="ACTIVITY_ID" %}{% endraw %}` in the post body
 - Or set `strava_id` in front matter for auto-embed at the bottom
 - Note: Group activities (recorded by/with others) may not embed due to Strava privacy restrictions
 
 ## Quick Facts Box
 
-```liquid
-{% include quick-facts.html
+```
+{% raw %}{% include quick-facts.html
   distance="48 km"
   elevation="3,345 m total"
   time="3 days"
@@ -50,7 +50,7 @@ strava_id: 12345678        # optional, for auto-embed
   start="Corrour Station"
   peaks="Peak 1, Peak 2"
   season="May - Sep"
-%}
+%}{% endraw %}
 ```
 
 ## When New Munros Are Completed

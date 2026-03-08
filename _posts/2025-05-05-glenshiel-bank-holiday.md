@@ -5,9 +5,9 @@ description: "A three-day May bank holiday adventure in Glenshiel"
 date: 2025-05-05
 trip_date: "May 2025"
 author: Dewi Gould
-image: /assets/glenshiel-DSC_7562.JPG
+image: /assets/glenshiel-DSC_7547.JPG
 category: scotland
-thumbnail: "/assets/glenshiel-DSC_7562.JPG"
+thumbnail: "/assets/glenshiel-DSC_7547.JPG"
 location_lat: 57.17
 location_lng: -5.30
 ---
@@ -64,7 +64,7 @@ We brewed some herbal tea at the top of the second summit which was a great firs
 
 <figure>
   <img src="/assets/glenshiel-DSC_7526.JPG" alt="Distant mountain views">
-  <figcaption>Ben Nevis visible in the distance.</figcaption>
+  <figcaption>Views off to our left.</figcaption>
 </figure>
 
 It's mostly a pretty broad ridge, giving you a real feeling of size and scale. But there are some narrower sections, and a few mini scrambles to keep you honest. It's nice that the scenery and summits really change as you go, it doesn't feel like one long continuous drag.
@@ -109,16 +109,15 @@ On our final day before driving back we did A' Chralaig and Mullach Fraoch-choir
   <figcaption>The stunning approach to Mullach Fraoch-choire.</figcaption>
 </figure>
 
-<div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
-  <figure>
-    <img src="/assets/glenshiel-DSC_7562.JPG" alt="Hiker on dramatic ridge">
-    <figcaption>The incredible ridge to Mullach Fraoch-choire.</figcaption>
-  </figure>
-  <figure>
-    <img src="/assets/glenshiel-DSC_7564.JPG" alt="Rocky ridge with mountain beyond">
-    <figcaption>Views from the scrambling sections.</figcaption>
-  </figure>
-</div>
+<figure>
+  <img src="/assets/glenshiel-DSC_7562.JPG" alt="Hiker on dramatic ridge">
+  <figcaption>The incredible ridge to Mullach Fraoch-choire.</figcaption>
+</figure>
+
+<figure>
+  <img src="/assets/glenshiel-DSC_7564.JPG" alt="Rocky ridge with mountain beyond">
+  <figcaption>Views from the scrambling sections.</figcaption>
+</figure>
 
 <figure>
   <img src="/assets/glenshiel-DSC_7578.JPG" alt="Peak against blue sky">

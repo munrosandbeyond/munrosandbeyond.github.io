@@ -27,6 +27,7 @@ title: Photo Gallery
       {% for image in images %}
         {% if forloop.first == false %}
           {% assign src = image | split: '"' | first %}
+          {% unless src contains 'adder' %}
           {% if src != post.image and src != post.thumbnail %}
           <a href="{{ post.url }}" class="gallery-item" data-title="{{ post.title }}" data-date="{{ post.trip_date | default: post.date | date: '%B %Y' }}">
             <img src="{{ src }}" alt="{{ post.title }}" loading="lazy">
@@ -35,6 +36,7 @@ title: Photo Gallery
             </div>
           </a>
           {% endif %}
+          {% endunless %}
         {% endif %}
       {% endfor %}
     {% endfor %}
@@ -113,26 +115,10 @@ title: Photo Gallery
   line-height: 1.3;
 }
 
-/* Vary some sizes for visual interest */
-.gallery-item:nth-child(7n+1) {
-  grid-row: span 2;
-  aspect-ratio: auto;
-}
-
-.gallery-item:nth-child(11n+3) {
-  grid-column: span 2;
-}
-
 @media (max-width: 768px) {
   .gallery-grid {
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 0.5rem;
-  }
-
-  .gallery-item:nth-child(7n+1),
-  .gallery-item:nth-child(11n+3) {
-    grid-row: span 1;
-    grid-column: span 1;
   }
 
   .gallery-header h1 {

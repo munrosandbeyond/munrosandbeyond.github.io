@@ -8,13 +8,26 @@
       <a class="site-logo" href="/">Munros &amp; Beyond</a>
       <div class="nav-links">
         <a href="/">Home</a>
-        <a href="/scotland.html">Scotland Trips</a>
-        <a href="/beyond.html">Beyond</a>
-        <a href="/munros.html">Munros</a>
-        <a href="/gallery.html">Gallery</a>
-        <a href="/world-map.html">World Map</a>
+        <div class="nav-dropdown">
+          <button class="nav-dropdown-btn">Trips <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <div class="nav-dropdown-content">
+            <a href="/scotland.html">Scotland</a>
+            <a href="/beyond.html">Beyond</a>
+          </div>
+        </div>
+        <div class="nav-dropdown">
+          <button class="nav-dropdown-btn">Explore <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <div class="nav-dropdown-content">
+            <a href="/munros.html">Munros</a>
+            <a href="/gallery.html">Gallery</a>
+            <a href="/world-map.html">World Map</a>
+          </div>
+        </div>
         <a href="/about.html">About</a>
       </div>
+      <button class="nav-mobile-toggle" aria-label="Toggle menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+      </button>
     </div>
   </nav>
 
@@ -35,6 +48,7 @@
 
   <script>
   (function() {
+    // Lightbox
     var lightbox = document.getElementById('lightbox');
     var lightboxImg = document.getElementById('lightbox-img');
 
@@ -57,6 +71,26 @@
         lightbox.classList.remove('active');
         document.body.style.overflow = '';
       }
+    });
+
+    // Mobile nav toggle
+    var mobileToggle = document.querySelector('.nav-mobile-toggle');
+    var navLinks = document.querySelector('.nav-links');
+    var dropdowns = document.querySelectorAll('.nav-dropdown');
+
+    if (mobileToggle) {
+      mobileToggle.addEventListener('click', function() {
+        navLinks.classList.toggle('active');
+      });
+    }
+
+    dropdowns.forEach(function(dropdown) {
+      dropdown.querySelector('.nav-dropdown-btn').addEventListener('click', function(e) {
+        if (window.innerWidth <= 768) {
+          e.preventDefault();
+          dropdown.classList.toggle('active');
+        }
+      });
     });
   })();
   </script>

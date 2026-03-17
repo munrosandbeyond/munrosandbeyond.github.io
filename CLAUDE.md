@@ -18,7 +18,7 @@ date: YYYY-MM-DD          # publish date (affects URL)
 trip_date: "Month YYYY"   # display date (e.g. "June 2025")
 author: Dewi Gould
 image: /assets/your-hero-image.JPG
-category: scotland         # or "further-afield"
+category: scotland         # or "beyond"
 thumbnail: "/assets/your-thumbnail.JPG"
 strava_id: 12345678        # optional, for auto-embed
 location_lat: 56.83        # optional, for World Map pin
@@ -26,7 +26,7 @@ location_lng: -4.97
 ---
 ```
 3. The `category` field affects the URL: `category: scotland` generates `/scotland/YYYY/MM/DD/slug.html`
-4. Posts appear on the homepage (all posts), and on their category page (Scotland Trips or Further Afield)
+4. Posts appear on the homepage (all posts), and on their category page (Scotland Trips or Beyond)
 5. If `location_lat`/`location_lng` are set, a pin appears automatically on the World Map page
 
 ## Adding a Route Map
@@ -118,6 +118,6 @@ _posts/           - Blog posts (markdown)
 
 munros.html       - Interactive munro tracker (map, search, list, chart)
 scotland.html     - Scotland category page
-further-afield.html - Further Afield category page
+beyond.html         - Beyond category page
 about.md          - About page
 ```

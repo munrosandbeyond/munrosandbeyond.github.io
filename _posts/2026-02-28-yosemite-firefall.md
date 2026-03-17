@@ -6,7 +6,7 @@ date: 2026-02-28
 trip_date: "February 2026"
 author: Dewi Gould
 image: /assets/yosemite-firefall.jpg
-category: further-afield
+category: beyond
 thumbnail: "/assets/yosemite-firefall.jpg"
 location_lat: 37.72
 location_lng: -119.63

@@ -8,9 +8,34 @@ layout: default
     <p>Adventures beyond Scotland's borders.</p>
   </div>
 
-  <div class="posts-grid category-grid">
-    {% for post in site.posts %}
-      {% if post.category == "beyond" %}
+  <!-- Regions Section -->
+  <div class="regions-section">
+    <h2 class="regions-title">Explore by Region</h2>
+    <div class="regions-grid">
+      {% assign beyond_posts = site.posts | where: "category", "beyond" %}
+      {% assign regions = beyond_posts | map: "region" | uniq %}
+      {% for region in regions %}
+        {% assign region_posts = beyond_posts | where: "region", region %}
+        {% assign first_post = region_posts | first %}
+        <a href="#{{ region | slugify }}" class="region-card" data-region="{{ region | slugify }}">
+          <div class="region-image" style="background-image: url('{{ first_post.thumbnail | default: first_post.image }}');"></div>
+          <div class="region-overlay"></div>
+          <div class="region-content">
+            <h3>{{ region }}</h3>
+            <span class="region-count">{{ region_posts.size }} {% if region_posts.size == 1 %}trip{% else %}trips{% endif %}</span>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Posts by Region -->
+  {% for region in regions %}
+  <div class="region-posts-section" id="{{ region | slugify }}">
+    <h2 class="region-posts-title">{{ region }}</h2>
+    <div class="posts-grid category-grid">
+      {% assign region_posts = beyond_posts | where: "region", region %}
+      {% for post in region_posts %}
       <a href="{{ post.url }}" class="post-card">
         <div class="card-image" style="background-image: url('{{ post.thumbnail | default: post.image }}');"></div>
         <div class="card-body">
@@ -22,7 +47,94 @@ layout: default
           <span class="card-link">Read more &rarr;</span>
         </div>
       </a>
-      {% endif %}
-    {% endfor %}
+      {% endfor %}
+    </div>
   </div>
+  {% endfor %}
 </div>
+
+<style>
+.regions-section {
+  margin-bottom: 3rem;
+}
+
+.regions-title {
+  font-family: 'Lora', serif;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--text-dark);
+}
+
+.regions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.region-card {
+  position: relative;
+  height: 200px;
+  border-radius: 12px;
+  overflow: hidden;
+  text-decoration: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.region-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+}
+
+.region-image {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.3s ease;
+}
+
+.region-card:hover .region-image {
+  transform: scale(1.05);
+}
+
+.region-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.2) 100%);
+}
+
+.region-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.5rem;
+  color: white;
+}
+
+.region-content h3 {
+  font-family: 'Lora', serif;
+  font-size: 1.5rem;
+  margin: 0 0 0.25rem 0;
+  font-weight: 600;
+}
+
+.region-count {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.region-posts-section {
+  margin-bottom: 3rem;
+  scroll-margin-top: 100px;
+}
+
+.region-posts-title {
+  font-family: 'Lora', serif;
+  font-size: 1.3rem;
+  margin-bottom: 1.25rem;
+  color: var(--text-dark);
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--accent);
+}
+</style>

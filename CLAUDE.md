@@ -19,6 +19,7 @@ trip_date: "Month YYYY"   # display date (e.g. "June 2025")
 author: Dewi Gould
 image: /assets/your-hero-image.JPG
 category: scotland         # or "beyond"
+region: "North America"    # required for "beyond" posts (e.g. "Central Asia", "Europe")
 thumbnail: "/assets/your-thumbnail.JPG"
 strava_id: 12345678        # optional, for auto-embed
 location_lat: 56.83        # optional, for World Map pin
@@ -28,6 +29,7 @@ location_lng: -4.97
 3. The `category` field affects the URL: `category: scotland` generates `/scotland/YYYY/MM/DD/slug.html`
 4. Posts appear on the homepage (all posts), and on their category page (Scotland Trips or Beyond)
 5. If `location_lat`/`location_lng` are set, a pin appears automatically on the World Map page
+6. For "beyond" posts, the `region` field is required - it groups posts by region on the Beyond page
 
 ## Adding a Route Map
 
@@ -84,6 +86,10 @@ You must update **all of the following** in `munros.html`:
 - The munro map auto-generates clickable popups with blog links and Strava links based on the `blog` and `stravaByDate` fields
 - The search feature on the munros page also uses these fields to show "Read blog" and "View on Strava" links
 - The progress-over-time chart auto-updates from the completed array
+
+## Share Links
+
+Every blog post automatically includes share buttons at the bottom (Copy link, X, Facebook, Email). This is handled by `_includes/sharelinks.html` and included in `_layouts/post.html`.
 
 ## Important Notes
 

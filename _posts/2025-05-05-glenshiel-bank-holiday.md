@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "12-Munro Bank Holiday Weekend"
+title: "12 Munros in 3 Days: A Bank Holiday in Glenshiel"
 description: "A three-day May bank holiday adventure in Glenshiel"
 date: 2025-05-05
 trip_date: "May 2025"

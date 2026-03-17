@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Summer Solstice: Corrour to Fort William via 6 Munros"
+title: "Corrour to Fort William: 6 Munros on the Longest Day"
 description: "6 Munros across the Grey Corries and Aonachs on the longest day of the year"
 date: 2026-03-07
 trip_date: "June 2025"

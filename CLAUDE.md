@@ -125,5 +125,6 @@ _posts/           - Blog posts (markdown)
 munros.html       - Interactive munro tracker (map, search, list, chart)
 scotland.html     - Scotland category page
 beyond.html         - Beyond category page
+gallery.html      - Photo gallery (auto-collects images from all posts)
 about.md          - About page
 ```

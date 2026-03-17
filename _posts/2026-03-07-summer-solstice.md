@@ -5,9 +5,9 @@ description: "6 Munros across the Grey Corries and Aonachs on the longest day of
 date: 2026-03-07
 trip_date: "June 2025"
 author: Dewi Gould
-image: /assets/DSC_7618.JPG
+image: /assets/DSC_7663.JPG
 category: scotland
-thumbnail: "/assets/DSC_7618.JPG"
+thumbnail: "/assets/DSC_7663.JPG"
 strava_id: 14879554991
 location_lat: 56.83
 location_lng: -4.97

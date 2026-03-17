@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "We Sprinted 2 Miles for Yosemite's Firefall"
+title: "Chasing Yosemite's Firefall (And Why It Was Worth the Chaos)"
 description: "Chasing the famous Horsetail Fall phenomenon - and why it was worth the chaos"
 date: 2025-02-28
 trip_date: "February 2025"

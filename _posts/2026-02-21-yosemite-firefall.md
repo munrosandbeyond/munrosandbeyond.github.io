@@ -2,7 +2,7 @@
 layout: post
 title: "Chasing Yosemite's Firefall (And Why It Was Worth the Chaos)"
 description: "Chasing the famous Horsetail Fall phenomenon - and why it was worth the chaos"
-date: 2026-02-28
+date: 2026-02-21
 trip_date: "February 2026"
 author: Dewi Gould
 image: /assets/yosemite-firefall.jpg
@@ -14,7 +14,7 @@ location_lng: -119.63
 ---
 
 ## Catching the Yosemite "Firefall"
-### 28th February, 2026.
+### 21st February, 2026.
 
 We were visiting Yosemite for the weekend, and I'd heard about this "firefall" thing - but to be honest I had relatively low expectations. We'd decided to focus on doing some big hikes, and agreed that if we were down in the valley in time we'd go and take a look!
 

@@ -5,10 +5,10 @@ description: "A bucket list trail run from the South Rim to the Colorado River a
 date: 2026-02-28
 trip_date: "February 2026"
 author: Dewi Gould
-image: /assets/grand-canyon-tonto.jpg
+image: /assets/grand-canyon-south-kaibab.jpg
 category: beyond
 region: "North America"
-thumbnail: "/assets/grand-canyon-tonto.jpg"
+thumbnail: "/assets/grand-canyon-south-kaibab.jpg"
 location_lat: 36.06
 location_lng: -112.14
 strava_id: 17559835915

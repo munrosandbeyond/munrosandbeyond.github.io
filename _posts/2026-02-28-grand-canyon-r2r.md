@@ -17,6 +17,18 @@ strava_id: 17559835915
 ## Rim to River to Rim
 ### 28th February, 2026.
 
+{% include quick-facts.html
+  distance="~42 km / 26 miles"
+  elevation="~3,000 m / 10,000 ft"
+  time="1 day"
+  difficulty="Hard"
+  start="South Rim"
+  peaks="Bright Angel, Tonto, South Kaibab trails"
+  season="Spring / Autumn (avoid summer heat)"
+%}
+
+{% include grand-canyon-route-map.html %}
+
 This has been a bucket list trail run for years. I remember watching the Jim Walmsley FKT video and dreaming about running this route myself.
 
 <div class="video-embed">
@@ -39,7 +51,7 @@ We'd planned to hike, but the trails were too enticing. Before long we were runn
   <figcaption>The Tonto Trail - perfect floaty singletrack.</figcaption>
 </figure>
 
-The stretch along Tonto was probably my favourite. Perfect floaty singletrack, incredible views in every direction, and the feeling that there wasn't another human for miles. This is what trail running is all about.
+The stretch along Tonto was probably my favourite. Perfect floaty singletrack, incredible views in every direction, and the feeling that there wasn't another human for miles.
 
 <figure>
   <img src="/assets/grand-canyon-red-rock.jpg" alt="Inner canyon rock formations">
@@ -55,7 +67,7 @@ Once we linked up with South Kaibab there were more people, mostly coming up. Af
 
 We made our way to Phantom Ranch. I'd read they sell lemonade but wasn't sure if they'd be open. As we approached, we spotted a lady walking with a cup in hand. We got extremely hyped.
 
-Lemonade. With ice. In that moment, it was truly impeccable. It was roasting at the bottom - high 20s, maybe 30°C. We were pretty wrecked and dehydrated, so filling up and stopping for lunch was essential. The scale of the challenge ahead wasn't lost on us.
+Lemonade. With ice. In that moment, it was truly impeccable. It was roasting at the bottom - high 20s, maybe 30°C. We were both pretty dead and dehydrated, so it was great to fill up and stop for a lunch pause. The scale of the challenge ahead wasn't lost on us.
 
 <figure>
   <img src="/assets/grand-canyon-inner-gorge.jpg" alt="View up through the inner gorge">

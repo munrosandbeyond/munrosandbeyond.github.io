@@ -1,0 +1,261 @@
+<div class="route-map-section">
+  <h3 class="route-map-title">The Route</h3>
+  <div id="route-map" class="route-map"></div>
+  <div class="route-legend">
+    <span class="route-legend-item"><span class="route-legend-line gc-route"></span> Rim to River to Rim</span>
+    <span class="route-legend-item"><span class="route-legend-dot phantom"></span> Phantom Ranch</span>
+  </div>
+  <div class="elevation-section">
+    <h4 class="elevation-title">Elevation Profile</h4>
+    <canvas id="elevation-chart" class="elevation-chart"></canvas>
+  </div>
+  <div class="route-stats-bar">
+    <div class="route-stat"><span class="route-stat-value" id="total-dist">--</span><span class="route-stat-label">Total km</span></div>
+    <div class="route-stat"><span class="route-stat-value" id="min-elev">--</span><span class="route-stat-label">Min Elevation</span></div>
+    <div class="route-stat"><span class="route-stat-value" id="max-elev">--</span><span class="route-stat-label">Max Elevation</span></div>
+    <div class="route-stat"><span class="route-stat-value" id="total-gain">--</span><span class="route-stat-label">Total Ascent</span></div>
+  </div>
+</div>
+
+<style>
+.route-map-section {
+  margin: 2.5rem 0;
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+.route-map-title {
+  font-family: 'Lora', serif;
+  font-size: 1.3rem;
+  margin: 0 0 1rem 0;
+  color: var(--color-text);
+}
+.route-map {
+  height: 400px;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+.route-legend {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+.route-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.route-legend-line {
+  width: 24px;
+  height: 3px;
+  border-radius: 2px;
+}
+.route-legend-line.gc-route { background: #e8555a; }
+.route-legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.route-legend-dot.phantom { background: #3498db; }
+.elevation-section {
+  margin-top: 1.5rem;
+}
+.elevation-title {
+  font-family: 'Lora', serif;
+  font-size: 1.1rem;
+  margin: 0 0 0.75rem 0;
+  color: var(--color-text);
+}
+.elevation-chart {
+  width: 100%;
+  height: 150px;
+}
+.route-stats-bar {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #eee;
+}
+.route-stat {
+  text-align: center;
+}
+.route-stat-value {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+.route-stat-label {
+  font-size: 0.8rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+</style>
+
+<script>
+(function() {
+  var routeColor = '#e8555a';
+  var gpxFile = '/assets/gpx/grand-canyon-r2r.gpx';
+
+  // Phantom Ranch location
+  var phantomRanch = {lat: 36.0975, lng: -112.0947, label: 'Phantom Ranch'};
+
+  var map = L.map('route-map', {scrollWheelZoom: false}).setView([36.1, -112.1], 12);
+
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+    maxZoom: 19,
+    attribution: '&copy; OpenStreetMap &copy; CARTO'
+  }).addTo(map);
+
+  function haversine(lat1, lon1, lat2, lon2) {
+    var R = 6371;
+    var dLat = (lat2 - lat1) * Math.PI / 180;
+    var dLon = (lon2 - lon1) * Math.PI / 180;
+    var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+            Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+            Math.sin(dLon/2) * Math.sin(dLon/2);
+    return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  }
+
+  new L.GPX(gpxFile, {
+    async: true,
+    marker_options: { startIconUrl: null, endIconUrl: null, shadowUrl: null },
+    polyline_options: { color: routeColor, weight: 4, opacity: 0.85 }
+  }).on('loaded', function(e) {
+    var gpx = e.target;
+    map.fitBounds(gpx.getBounds().pad(0.1));
+
+    // Add Phantom Ranch marker
+    L.circleMarker([phantomRanch.lat, phantomRanch.lng], {
+      radius: 8, fillColor: '#3498db', color: '#fff', weight: 2, fillOpacity: 1
+    }).addTo(map).bindPopup('<strong>' + phantomRanch.label + '</strong><br>Lemonade stop!');
+
+    // Get track points for elevation
+    var points = [];
+    var layers = gpx.getLayers();
+    layers.forEach(function(layer) {
+      if (layer.getLayers) {
+        layer.getLayers().forEach(function(l) {
+          if (l.getLatLngs) {
+            var latlngs = l.getLatLngs();
+            if (latlngs[0] && latlngs[0].lat !== undefined) {
+              latlngs.forEach(function(p) { points.push(p); });
+            } else {
+              latlngs.forEach(function(seg) {
+                seg.forEach(function(p) { points.push(p); });
+              });
+            }
+          }
+        });
+      }
+    });
+
+    // Calculate stats and build elevation data
+    var totalDist = 0;
+    var elevations = [];
+    var distances = [];
+    var totalGain = 0;
+    var minElev = Infinity;
+    var maxElev = -Infinity;
+
+    for (var i = 0; i < points.length; i++) {
+      var p = points[i];
+      var elev = p.meta && p.meta.ele ? p.meta.ele : (p.alt || 0);
+
+      if (i > 0) {
+        var prev = points[i-1];
+        totalDist += haversine(prev.lat, prev.lng, p.lat, p.lng);
+        var prevElev = prev.meta && prev.meta.ele ? prev.meta.ele : (prev.alt || 0);
+        if (elev > prevElev) totalGain += (elev - prevElev);
+      }
+
+      if (elev < minElev) minElev = elev;
+      if (elev > maxElev) maxElev = elev;
+      elevations.push(elev);
+      distances.push(totalDist);
+    }
+
+    // Update stats
+    document.getElementById('total-dist').textContent = totalDist.toFixed(1);
+    document.getElementById('min-elev').textContent = Math.round(minElev) + 'm';
+    document.getElementById('max-elev').textContent = Math.round(maxElev) + 'm';
+    document.getElementById('total-gain').textContent = Math.round(totalGain) + 'm';
+
+    // Draw elevation chart
+    var canvas = document.getElementById('elevation-chart');
+    var ctx = canvas.getContext('2d');
+    var W = canvas.offsetWidth;
+    var H = canvas.offsetHeight;
+    canvas.width = W * 2;
+    canvas.height = H * 2;
+    ctx.scale(2, 2);
+
+    var pad = {top: 10, right: 10, bottom: 25, left: 45};
+    var cW = W - pad.left - pad.right;
+    var cH = H - pad.top - pad.bottom;
+
+    // Sample points for performance
+    var step = Math.max(1, Math.floor(elevations.length / 500));
+    var sampledElev = [];
+    var sampledDist = [];
+    for (var j = 0; j < elevations.length; j += step) {
+      sampledElev.push(elevations[j]);
+      sampledDist.push(distances[j]);
+    }
+
+    var elevMin = Math.min.apply(null, sampledElev) - 50;
+    var elevMax = Math.max.apply(null, sampledElev) + 50;
+    var distMax = sampledDist[sampledDist.length - 1];
+
+    // Draw gradient fill
+    var grad = ctx.createLinearGradient(0, pad.top, 0, pad.top + cH);
+    grad.addColorStop(0, 'rgba(232,85,90,0.4)');
+    grad.addColorStop(1, 'rgba(232,85,90,0.05)');
+
+    ctx.beginPath();
+    ctx.moveTo(pad.left, pad.top + cH);
+    for (var k = 0; k < sampledElev.length; k++) {
+      var x = pad.left + (sampledDist[k] / distMax) * cW;
+      var y = pad.top + cH - ((sampledElev[k] - elevMin) / (elevMax - elevMin)) * cH;
+      ctx.lineTo(x, y);
+    }
+    ctx.lineTo(pad.left + cW, pad.top + cH);
+    ctx.closePath();
+    ctx.fillStyle = grad;
+    ctx.fill();
+
+    // Draw line
+    ctx.beginPath();
+    for (var m = 0; m < sampledElev.length; m++) {
+      var x2 = pad.left + (sampledDist[m] / distMax) * cW;
+      var y2 = pad.top + cH - ((sampledElev[m] - elevMin) / (elevMax - elevMin)) * cH;
+      if (m === 0) ctx.moveTo(x2, y2);
+      else ctx.lineTo(x2, y2);
+    }
+    ctx.strokeStyle = routeColor;
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    // Axes labels
+    ctx.fillStyle = '#888';
+    ctx.font = '11px Inter, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('0', pad.left, pad.top + cH + 15);
+    ctx.fillText((distMax/2).toFixed(0) + ' km', pad.left + cW/2, pad.top + cH + 15);
+    ctx.fillText(distMax.toFixed(0) + ' km', pad.left + cW, pad.top + cH + 15);
+
+    ctx.textAlign = 'right';
+    ctx.fillText(Math.round(elevMin) + 'm', pad.left - 5, pad.top + cH);
+    ctx.fillText(Math.round(elevMax) + 'm', pad.left - 5, pad.top + 10);
+
+  }).addTo(map);
+})();
+</script>

@@ -3,7 +3,6 @@
   <div id="route-map" class="route-map"></div>
   <div class="route-legend">
     <span class="route-legend-item"><span class="route-legend-line gc-route"></span> Rim to River to Rim</span>
-    <span class="route-legend-item"><span class="route-legend-dot phantom"></span> Phantom Ranch</span>
   </div>
   <div class="elevation-section">
     <h4 class="elevation-title">Elevation Profile</h4>
@@ -54,12 +53,6 @@
   border-radius: 2px;
 }
 .route-legend-line.gc-route { background: #e8555a; }
-.route-legend-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-}
-.route-legend-dot.phantom { background: #3498db; }
 .elevation-section {
   margin-top: 1.5rem;
 }
@@ -105,9 +98,7 @@
   var routeColor = '#e8555a';
   var gpxFile = '/assets/gpx/grand-canyon-r2r.gpx';
 
-  // Phantom Ranch location
-  var phantomRanch = {lat: 36.0975, lng: -112.0947, label: 'Phantom Ranch'};
-
+  
   var map = L.map('route-map', {scrollWheelZoom: false}).setView([36.1, -112.1], 12);
 
   L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
@@ -132,11 +123,6 @@
   }).on('loaded', function(e) {
     var gpx = e.target;
     map.fitBounds(gpx.getBounds().pad(0.1));
-
-    // Add Phantom Ranch marker
-    L.circleMarker([phantomRanch.lat, phantomRanch.lng], {
-      radius: 8, fillColor: '#3498db', color: '#fff', weight: 2, fillOpacity: 1
-    }).addTo(map).bindPopup('<strong>' + phantomRanch.label + '</strong><br>Lemonade stop!');
 
     // Get track points for elevation
     var points = [];

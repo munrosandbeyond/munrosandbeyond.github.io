@@ -18,8 +18,6 @@ strava_id: 17559835915
 ### 28th February, 2026.
 
 {% include quick-facts.html
-  distance="~42 km / 26 miles"
-  elevation="~3,000 m / 10,000 ft"
   time="1 day"
   difficulty="Hard"
   start="South Rim"

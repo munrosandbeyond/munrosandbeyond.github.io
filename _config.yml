@@ -3,6 +3,14 @@ author: "Dewi Gould"
 description: "Some adventure stories from Scotland and beyond."
 url: "https://munrosandbeyond.github.io"
 
+# Exclude files from build
+exclude:
+  - CLAUDE.md
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - .env
+
 # Email / Social media user names used by the minima theme:
 # All of these are optional and can be removed or commented out
 #email: "example@mail.com"

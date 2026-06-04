@@ -18,12 +18,12 @@ layout: default
 
       <a href="/munros.html" class="about-progress-bar">
         <div class="about-stat">
-          <span class="about-stat-number">115</span>
+          <span class="about-stat-number">124</span>
           <span class="about-stat-label">Completed</span>
         </div>
         <div class="about-progress-arrow">
           <svg width="60" height="24" viewBox="0 0 60 24"><path d="M0 12h50M42 4l10 8-10 8" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <span class="about-progress-pct">40.8%</span>
+          <span class="about-progress-pct">44.0%</span>
         </div>
         <div class="about-stat">
           <span class="about-stat-number">282</span>

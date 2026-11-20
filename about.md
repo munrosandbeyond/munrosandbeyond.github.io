@@ -18,7 +18,7 @@ layout: default
 
       <a href="/munros.html" class="about-progress-bar">
         <div class="about-stat">
-          <span class="about-stat-number">124</span>
+          <span class="about-stat-number">127</span>
           <span class="about-stat-label">Completed</span>
         </div>
         <div class="about-progress-arrow">

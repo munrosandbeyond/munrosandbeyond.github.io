@@ -96,7 +96,7 @@ Every blog post automatically includes share buttons at the bottom (Copy link, X
 - **Cache busting**: CSS is loaded with `?v=2` in `_includes/head.html`. Increment this if CSS changes aren't showing
 - **Image alt text**: All images in posts should have alt text for accessibility
 - **Lightbox**: Post content images automatically get click-to-zoom via the lightbox in `_layouts/default.html`
-- **Map tiles**: Using CARTO Voyager raster tiles - the URL must include `rastertiles/` in the path
+- **Map tiles**: Using OpenTopoMap tiles (`https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png`, maxZoom 17). CARTO was dropped in Nov 2026 because it now requires an API key
 - **Blog URL structure**: Jekyll prepends the category to the URL. A post with `category: scotland` and date `2026-03-07` and slug `summer-solstice` will be at `/scotland/2026/03/07/summer-solstice.html`
 
 ## File Structure

@@ -96,4 +96,3 @@ As someone who has done almost all of my Munros by car, this was really inspirin
 
 I also really liked the fact that I had made this route myself: linking trains and distinct munro groups into one big adventure. This has given me a lot of confidence to do more of this: figuring out my own way to tick off the 282.
 
-{% include strava-activity.html id="14879554991" %}
